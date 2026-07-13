@@ -20,6 +20,7 @@ export default function Navbar() {
     { label: 'Products', href: '/products' },
     { label: 'Partners', href: '/partners' },
     { label: 'Ports',    href: '/ports' },
+    { label: 'Profile',  href: '/company-profile' },
     { label: 'Contact',  href: '/contact' },
   ];
 
@@ -27,11 +28,11 @@ export default function Navbar() {
     <>
       {/* TOP BAR - hide on mobile */}
       <div className="top-bar" style={{
-        background: '#07111F', color: '#C9922A',
+        background: '#07111F', color: '#3E7CB8',
         padding: '7px 48px',
         display: 'flex', justifyContent: 'space-between', alignItems: 'center',
         fontSize: '13px', letterSpacing: '0.4px',
-        borderBottom: '1px solid rgba(201,146,42,0.15)',
+        borderBottom: '1px solid rgba(62,124,184,0.15)',
       }}>
         <span>✉ info@badrimarine.com</span>
         <span>📱 +971 52 872 4060</span>
@@ -42,7 +43,7 @@ export default function Navbar() {
         position: 'fixed', top: 0, zIndex: 100, left: 0, right: 0,
         background: scrolled ? 'rgba(7,17,31,0.97)' : 'linear-gradient(180deg,#0D1E35,#112240)',
         backdropFilter: 'blur(12px)',
-        borderBottom: '1px solid rgba(201,146,42,0.15)',
+        borderBottom: '1px solid rgba(62,124,184,0.15)',
         padding: '0 48px',
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         height: '90px',
@@ -59,14 +60,14 @@ export default function Navbar() {
         <div style={{ display: 'flex', gap: '28px', alignItems: 'center' }} className="nav-desktop">
           {links.map(l => <NavLink key={l.label} href={l.href} label={l.label} />)}
           <Link href="/contact" style={{
-            background: 'linear-gradient(135deg,#C9922A,#E8B84B)',
-            color: '#0A1628', padding: '11px 22px', borderRadius: '6px',
+            background: 'linear-gradient(135deg,#073255,#3E7CB8)',
+            color: '#FFFFFF', padding: '11px 22px', borderRadius: '6px',
             fontWeight: 900, fontSize: '12px', letterSpacing: '1px', textTransform: 'uppercase',
-            boxShadow: '0 4px 14px rgba(201,146,42,0.3)', whiteSpace: 'nowrap',
+            boxShadow: '0 4px 14px rgba(62,124,184,0.3)', whiteSpace: 'nowrap',
             transition: 'transform 0.2s, box-shadow 0.2s',
           }}
-            onMouseEnter={e => { e.currentTarget.style.transform='translateY(-2px)'; e.currentTarget.style.boxShadow='0 8px 24px rgba(201,146,42,0.5)'; }}
-            onMouseLeave={e => { e.currentTarget.style.transform='translateY(0)'; e.currentTarget.style.boxShadow='0 4px 14px rgba(201,146,42,0.3)'; }}
+            onMouseEnter={e => { e.currentTarget.style.transform='translateY(-2px)'; e.currentTarget.style.boxShadow='0 8px 24px rgba(62,124,184,0.5)'; }}
+            onMouseLeave={e => { e.currentTarget.style.transform='translateY(0)'; e.currentTarget.style.boxShadow='0 4px 14px rgba(62,124,184,0.3)'; }}
           >Get a Quote</Link>
         </div>
 
@@ -75,7 +76,7 @@ export default function Navbar() {
           style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px', display: 'none', flexDirection: 'column', gap: '5px' }}>
           {[0,1,2].map(i => (
             <div key={i} style={{
-              width: '26px', height: '2px', background: '#E8B84B', borderRadius: '2px',
+              width: '26px', height: '2px', background: '#3E7CB8', borderRadius: '2px',
               transition: 'all 0.3s',
               transform: menuOpen && i === 0 ? 'rotate(45deg) translate(5px,5px)' : menuOpen && i === 2 ? 'rotate(-45deg) translate(5px,-5px)' : 'none',
               opacity: menuOpen && i === 1 ? 0 : 1,
@@ -94,7 +95,7 @@ export default function Navbar() {
         }}>
           <button onClick={() => setMenuOpen(false)} style={{
             position: 'absolute', top: '24px', right: '24px',
-            background: 'none', border: 'none', color: '#C9922A',
+            background: 'none', border: 'none', color: '#3E7CB8',
             fontSize: '36px', cursor: 'pointer', lineHeight: 1,
           }}>×</button>
           {links.map(l => (
@@ -104,8 +105,8 @@ export default function Navbar() {
             }}>{l.label}</Link>
           ))}
           <Link href="/contact" onClick={() => setMenuOpen(false)} style={{
-            background: 'linear-gradient(135deg,#C9922A,#E8B84B)',
-            color: '#0A1628', padding: '14px 36px', borderRadius: '6px',
+            background: 'linear-gradient(135deg,#073255,#3E7CB8)',
+            color: '#FFFFFF', padding: '14px 36px', borderRadius: '6px',
             fontWeight: 900, fontSize: '14px', letterSpacing: '1px',
             textTransform: 'uppercase', marginTop: '8px',
           }}>Get a Quote</Link>
@@ -153,7 +154,7 @@ function NavLink({ href, label }) {
   const [hov, setHov] = useState(false);
   return (
     <Link href={href} style={{
-      color: hov ? '#E8B84B' : '#D0D8E8',
+      color: hov ? '#3E7CB8' : '#D0D8E8',
       fontSize: '12px', letterSpacing: '1.2px', fontWeight: 600,
       textTransform: 'uppercase', transition: 'color 0.2s',
       position: 'relative', paddingBottom: '4px',
@@ -162,7 +163,7 @@ function NavLink({ href, label }) {
       {label}
       <span style={{
         position: 'absolute', bottom: 0, left: 0, right: 0, height: '2px',
-        background: 'linear-gradient(90deg,#C9922A,#E8B84B)', borderRadius: '2px',
+        background: 'linear-gradient(90deg,#073255,#3E7CB8)', borderRadius: '2px',
         opacity: hov ? 1 : 0, transform: hov ? 'scaleX(1)' : 'scaleX(0)',
         transition: 'all 0.25s ease', transformOrigin: 'left',
       }} />

@@ -6,38 +6,100 @@ function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
+/* --- SVG ICONS (replacing emojis) --- */
+function IconGlobe({ size = 32, color = 'currentColor' }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="9" />
+      <line x1="3" y1="12" x2="21" y2="12" />
+      <path d="M12 3c2.5 2.5 3.75 5.5 3.75 9s-1.25 6.5-3.75 9c-2.5-2.5-3.75-5.5-3.75-9S9.5 5.5 12 3z" />
+    </svg>
+  );
+}
+function IconBriefcase({ size = 32, color = 'currentColor' }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="7" width="18" height="13" rx="2" />
+      <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+      <line x1="3" y1="12" x2="21" y2="12" />
+    </svg>
+  );
+}
+function IconPackage({ size = 32, color = 'currentColor' }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 8l-9-5-9 5 9 5 9-5z" />
+      <path d="M3 8v8l9 5 9-5V8" />
+      <line x1="12" y1="13" x2="12" y2="21" />
+    </svg>
+  );
+}
+function IconCart({ size = 32, color = 'currentColor' }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="9" cy="20" r="1.4" />
+      <circle cx="18" cy="20" r="1.4" />
+      <path d="M1 1h3l2.6 12.6a2 2 0 0 0 2 1.6h9.4a2 2 0 0 0 2-1.6L21 6H5" />
+    </svg>
+  );
+}
+function IconPin({ size = 22, color = 'currentColor' }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 1 1 18 0z" />
+      <circle cx="12" cy="10" r="3" />
+    </svg>
+  );
+}
+function IconPhone({ size = 22, color = 'currentColor' }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+    </svg>
+  );
+}
+function IconClock({ size = 22, color = 'currentColor' }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="9" />
+      <polyline points="12 7 12 12 16 14" />
+    </svg>
+  );
+}
+/* --- END SVG ICONS --- */
+
 const EMAIL_SECTIONS = [
   {
-    icon: '🌐',
+    icon: <IconGlobe />,
     title: 'Commercial',
     subtitle: 'General Inquiries & Quotes',
     email: 'info@badrimarine.com',
     desc: 'For vessel supply requests, product inquiries, and general business questions.',
-    color: '#C9922A',
+    color: '#3E7CB8',
   },
   {
-    icon: '👔',
+    icon: <IconBriefcase />,
     title: 'Management',
     subtitle: 'Business & Partnerships',
     email: 'ali@badrimarine.com',
     desc: 'For business partnerships, management discussions, and corporate matters.',
-    color: '#E8B84B',
+    color: '#3E7CB8',
   },
   {
-    icon: '📦',
+    icon: <IconPackage />,
     title: 'Sales',
     subtitle: 'New Orders & Contracts',
     email: 'sales@badrimarine.com',
     desc: 'For placing new orders, sales contracts, and pricing discussions.',
-    color: '#C9922A',
+    color: '#3E7CB8',
   },
   {
-    icon: '🛒',
+    icon: <IconCart />,
     title: 'Purchase',
     subtitle: 'Procurement & Supply',
     email: 'purchase@badrimarine.com',
     desc: 'For procurement queries, supplier communication, and purchasing matters.',
-    color: '#E8B84B',
+    color: '#3E7CB8',
   },
 ];
 
@@ -52,7 +114,7 @@ function EmailCard({ s, i, visible }) {
         display: 'block',
         textDecoration: 'none',
         background: hovered ? 'linear-gradient(135deg,#0D1E35,#162A45)' : 'rgba(255,255,255,0.03)',
-        border: `1px solid ${hovered ? 'rgba(201,146,42,0.5)' : 'rgba(201,146,42,0.15)'}`,
+        border: `1px solid ${hovered ? 'rgba(62,124,184,0.5)' : 'rgba(62,124,184,0.15)'}`,
         borderRadius: '12px',
         padding: '32px 28px',
         transition: 'all 0.35s ease',
@@ -62,11 +124,11 @@ function EmailCard({ s, i, visible }) {
         transitionDelay: `${i * 0.1}s`,
       }}
     >
-      <div style={{ fontSize: '32px', marginBottom: '14px' }}>{s.icon}</div>
+      <div style={{ color: s.color, marginBottom: '14px' }}>{s.icon}</div>
       <div style={{ color: s.color, fontSize: '11px', fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '6px' }}>{s.title}</div>
       <div style={{ color: '#F5F5F0', fontSize: '15px', fontWeight: 800, marginBottom: '12px' }}>{s.subtitle}</div>
       <div style={{ color: '#8B9BB4', fontSize: '13px', lineHeight: 1.7, marginBottom: '20px' }}>{s.desc}</div>
-      <div style={{ color: '#E8B84B', fontSize: '14px', fontWeight: 600, wordBreak: 'break-all' }}>{s.email}</div>
+      <div style={{ color: '#3E7CB8', fontSize: '14px', fontWeight: 600, wordBreak: 'break-all' }}>{s.email}</div>
     </a>
   );
 }
@@ -121,11 +183,11 @@ export default function ContactContent() {
     <main>
       {/* HERO */}
       <section style={{ background: 'linear-gradient(135deg,#0A1628,#112240)', padding: '100px 64px 80px', position: 'relative', overflow: 'hidden' }}>
-        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 80% 50%,rgba(201,146,42,0.07),transparent 60%)', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 80% 50%,rgba(62,124,184,0.07),transparent 60%)', pointerEvents: 'none' }} />
         <div style={{ maxWidth: '700px', position: 'relative', zIndex: 1 }}>
-          <div style={{ color: '#C9922A', fontSize: '12px', letterSpacing: '4px', textTransform: 'uppercase', marginBottom: '16px', fontWeight: 700 }}>Get In Touch</div>
+          <div style={{ color: '#3E7CB8', fontSize: '12px', letterSpacing: '4px', textTransform: 'uppercase', marginBottom: '16px', fontWeight: 700 }}>Get In Touch</div>
           <h1 style={{ color: '#F5F5F0', fontSize: 'clamp(32px,4vw,52px)', fontWeight: 900, lineHeight: 1.1, margin: '0 0 24px' }}>
-            Let's Talk About<br /><span style={{ color: '#E8B84B' }}>What You Need.</span>
+            Let's Talk About<br /><span style={{ color: '#3E7CB8' }}>What You Need.</span>
           </h1>
           <p style={{ color: '#8B9BB4', fontSize: '18px', lineHeight: 1.75 }}>
             Tell us your requirements and we'll get back to you fast. No sales pitch, no runaround - just a straight answer on what we can do for you.
@@ -137,7 +199,7 @@ export default function ContactContent() {
       <section ref={refCards} style={{ background: '#0A1628', padding: '80px 64px' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '56px' }}>
-            <div style={{ color: '#C9922A', fontSize: '12px', letterSpacing: '4px', textTransform: 'uppercase', marginBottom: '14px', fontWeight: 700 }}>Reach The Right Team</div>
+            <div style={{ color: '#3E7CB8', fontSize: '12px', letterSpacing: '4px', textTransform: 'uppercase', marginBottom: '14px', fontWeight: 700 }}>Reach The Right Team</div>
             <h2 style={{ color: '#F5F5F0', fontSize: 'clamp(22px,3vw,36px)', fontWeight: 900, margin: 0 }}>Contact The Right Department</h2>
           </div>
           <div className="email-grid">
@@ -156,7 +218,7 @@ export default function ContactContent() {
             <h2 style={{ color: '#0A1628', fontSize: '28px', fontWeight: 900, margin: '0 0 32px' }}>Request a Quote</h2>
 
             {status === 'success' && (
-              <div style={{ background: '#0A1628', color: '#E8B84B', padding: '16px 20px', borderRadius: '6px', marginBottom: '24px', fontSize: '15px', fontWeight: 600 }}>
+              <div style={{ background: '#0A1628', color: '#3E7CB8', padding: '16px 20px', borderRadius: '6px', marginBottom: '24px', fontSize: '15px', fontWeight: 600 }}>
                 Message sent. We will be in touch within 24 hours.
               </div>
             )}
@@ -171,7 +233,7 @@ export default function ContactContent() {
                 <div key={k}>
                   <input placeholder={p} value={form[k]}
                     onChange={e => { setForm({...form,[k]:e.target.value}); if(errors[k]) setErrors({...errors,[k]:''}); }}
-                    onFocus={e => { e.target.style.borderColor='#C9922A'; e.target.style.boxShadow='0 0 0 3px rgba(201,146,42,0.12)'; }}
+                    onFocus={e => { e.target.style.borderColor='#3E7CB8'; e.target.style.boxShadow='0 0 0 3px rgba(62,124,184,0.12)'; }}
                     onBlur={e => { e.target.style.borderColor=errors[k]?'#dc2626':'#E2E8F0'; e.target.style.boxShadow='none'; }}
                     style={inp(k)} disabled={status==='loading'} />
                   {errors[k] && <div style={{ color: '#dc2626', fontSize: '12px', marginTop: '4px' }}>{errors[k]}</div>}
@@ -182,23 +244,23 @@ export default function ContactContent() {
             <textarea placeholder="Tell us about your requirement - vessel name, port, items needed, timeline..."
               rows={6} value={form.message}
               onChange={e => setForm({...form,message:e.target.value})}
-              onFocus={e => { e.target.style.borderColor='#C9922A'; e.target.style.boxShadow='0 0 0 3px rgba(201,146,42,0.12)'; }}
+              onFocus={e => { e.target.style.borderColor='#3E7CB8'; e.target.style.boxShadow='0 0 0 3px rgba(62,124,184,0.12)'; }}
               onBlur={e => { e.target.style.borderColor='#E2E8F0'; e.target.style.boxShadow='none'; }}
               style={{ ...inp('message'), resize: 'vertical', marginBottom: '18px', display: 'block' }}
               disabled={status==='loading'} />
 
             <button onClick={handleSubmit} disabled={status==='loading'} style={{
-              background: status==='loading' ? 'rgba(201,146,42,0.5)' : 'linear-gradient(135deg,#C9922A,#E8B84B)',
-              color: '#0A1628', border: 'none', padding: '15px 40px',
+              background: status==='loading' ? 'rgba(62,124,184,0.5)' : 'linear-gradient(135deg,#073255,#3E7CB8)',
+              color: '#FFFFFF', border: 'none', padding: '15px 40px',
               borderRadius: '6px', fontWeight: 900, fontSize: '14px',
               letterSpacing: '1px', textTransform: 'uppercase',
               cursor: status==='loading' ? 'not-allowed' : 'pointer',
               display: 'flex', alignItems: 'center', gap: '10px',
-              boxShadow: '0 4px 16px rgba(201,146,42,0.35)',
+              boxShadow: '0 4px 16px rgba(62,124,184,0.35)',
               transition: 'opacity 0.2s, transform 0.2s',
             }}
-              onMouseEnter={e => { if(status!=='loading'){ e.currentTarget.style.transform='translateY(-2px)'; e.currentTarget.style.boxShadow='0 8px 24px rgba(201,146,42,0.5)'; }}}
-              onMouseLeave={e => { e.currentTarget.style.transform='translateY(0)'; e.currentTarget.style.boxShadow='0 4px 16px rgba(201,146,42,0.35)'; }}
+              onMouseEnter={e => { if(status!=='loading'){ e.currentTarget.style.transform='translateY(-2px)'; e.currentTarget.style.boxShadow='0 8px 24px rgba(62,124,184,0.5)'; }}}
+              onMouseLeave={e => { e.currentTarget.style.transform='translateY(0)'; e.currentTarget.style.boxShadow='0 4px 16px rgba(62,124,184,0.35)'; }}
             >
               {status==='loading' ? (
                 <>
@@ -212,14 +274,14 @@ export default function ContactContent() {
           <div style={{ flex: 1, minWidth: '240px', opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(24px)', transition: 'all 0.8s ease 0.2s' }}>
             <h2 style={{ color: '#0A1628', fontSize: '28px', fontWeight: 900, margin: '0 0 32px' }}>Contact Details</h2>
             {[
-              ['📍','Office Address','Office No 404, Murrar Building, Naif Road, Deira, Dubai, UAE'],
-              ['📱','WhatsApp','+971 52 872 4060'],
-              ['🕘','Working Hours','Monday to Saturday\n9:00 AM to 6:00 PM'],
+              [<IconPin color="#F5F5F0" />,'Office Address','Office No 404, Murrar Building, Naif Road, Deira, Dubai, UAE'],
+              [<IconPhone color="#F5F5F0" />,'WhatsApp','+971 52 872 4060'],
+              [<IconClock color="#F5F5F0" />,'Working Hours','Monday to Saturday\n9:00 AM to 6:00 PM'],
             ].map(([icon,label,val]) => (
               <div key={label} style={{ marginBottom: '24px', display: 'flex', gap: '14px', alignItems: 'flex-start', paddingBottom: '24px', borderBottom: '1px solid #E2E8F0' }}>
-                <div style={{ width: '44px', height: '44px', background: 'linear-gradient(135deg,#0A1628,#112240)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px', flexShrink: 0 }}>{icon}</div>
+                <div style={{ width: '44px', height: '44px', background: 'linear-gradient(135deg,#0A1628,#112240)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>{icon}</div>
                 <div>
-                  <div style={{ color: '#C9922A', fontSize: '11px', fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '5px' }}>{label}</div>
+                  <div style={{ color: '#3E7CB8', fontSize: '11px', fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '5px' }}>{label}</div>
                   <div style={{ color: '#4A5568', fontSize: '15px', lineHeight: 1.7, whiteSpace: 'pre-line' }}>{val}</div>
                 </div>
               </div>
@@ -252,8 +314,8 @@ export default function ContactContent() {
           referrerPolicy="no-referrer-when-downgrade"
           title="Badri Marine Office Location"
         />
-        <div style={{ position: 'absolute', top: '24px', left: '24px', background: 'rgba(10,22,40,0.92)', border: '1px solid rgba(201,146,42,0.3)', borderRadius: '8px', padding: '16px 20px', backdropFilter: 'blur(8px)' }}>
-          <div style={{ color: '#E8B84B', fontSize: '13px', fontWeight: 800, marginBottom: '4px' }}>BADRI MARINE</div>
+        <div style={{ position: 'absolute', top: '24px', left: '24px', background: 'rgba(10,22,40,0.92)', border: '1px solid rgba(62,124,184,0.3)', borderRadius: '8px', padding: '16px 20px', backdropFilter: 'blur(8px)' }}>
+          <div style={{ color: '#3E7CB8', fontSize: '13px', fontWeight: 800, marginBottom: '4px' }}>BADRI MARINE</div>
           <div style={{ color: '#8B9BB4', fontSize: '12px' }}>Office No 404, Murrar Building</div>
           <div style={{ color: '#8B9BB4', fontSize: '12px' }}>Naif Road, Deira, Dubai, UAE</div>
         </div>

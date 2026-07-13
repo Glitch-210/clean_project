@@ -6,7 +6,7 @@ import Link from 'next/link';
 function FooterLink({ href, label }) {
   const [hovered, setHovered] = useState(false);
   return (
-    <Link href={href} style={{ display: 'block', color: hovered ? '#E8B84B' : '#8B9BB4', textDecoration: 'none', fontSize: '13px', marginBottom: '10px', transition: 'color 0.2s' }}
+    <Link href={href} style={{ display: 'block', color: hovered ? '#3E7CB8' : '#8B9BB4', textDecoration: 'none', fontSize: '13px', marginBottom: '10px', transition: 'color 0.2s' }}
       onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
       › {label}
     </Link>
@@ -15,13 +15,13 @@ function FooterLink({ href, label }) {
 
 export default function Footer() {
   return (
-    <footer style={{ background: '#07111F', borderTop: '1px solid rgba(201,146,42,0.2)' }}>
+    <footer style={{ background: '#07111F', borderTop: '1px solid rgba(62,124,184,0.2)' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '64px 40px 28px' }}>
 
         {/* CTA BANNER */}
         <div style={{
-          background: 'linear-gradient(135deg,rgba(201,146,42,0.12),rgba(232,184,75,0.06))',
-          border: '1px solid rgba(201,146,42,0.25)',
+          background: 'linear-gradient(135deg,rgba(62,124,184,0.12),rgba(62,124,184,0.06))',
+          border: '1px solid rgba(62,124,184,0.25)',
           borderRadius: '8px', padding: '32px 32px',
           display: 'flex', justifyContent: 'space-between',
           alignItems: 'center', flexWrap: 'wrap', gap: '20px',
@@ -32,8 +32,8 @@ export default function Footer() {
             <div style={{ color: '#8B9BB4', fontSize: '13px' }}>Tell us what you need and we will have a quote back to you within 24 hours.</div>
           </div>
           <Link href="/contact" style={{
-            background: 'linear-gradient(135deg,#C9922A,#E8B84B)',
-            color: '#0A1628', padding: '12px 24px', borderRadius: '4px',
+            background: 'linear-gradient(135deg,#073255,#3E7CB8)',
+            color: '#FFFFFF', padding: '12px 24px', borderRadius: '4px',
             fontWeight: 900, fontSize: '12px', letterSpacing: '1px',
             textTransform: 'uppercase', textDecoration: 'none', whiteSpace: 'nowrap',
           }}>Get a Quote</Link>
@@ -60,18 +60,20 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <div style={{ color: '#E8B84B', fontSize: '11px', letterSpacing: '2px', fontWeight: 700, marginBottom: '18px' }}>QUICK LINKS</div>
+            <div style={{ color: '#3E7CB8', fontSize: '11px', letterSpacing: '2px', fontWeight: 700, marginBottom: '18px' }}>QUICK LINKS</div>
             <FooterLink href="/" label="Home" />
             <FooterLink href="/about" label="About Us" />
             <FooterLink href="/services" label="Services" />
             <FooterLink href="/products" label="Products" />
+            <FooterLink href="/partners" label="Partners" />
             <FooterLink href="/ports" label="Ports" />
+            <FooterLink href="/company-profile" label="Company Profile" />
             <FooterLink href="/contact" label="Contact" />
           </div>
 
           {/* Services */}
           <div>
-            <div style={{ color: '#E8B84B', fontSize: '11px', letterSpacing: '2px', fontWeight: 700, marginBottom: '18px' }}>SERVICES</div>
+            <div style={{ color: '#3E7CB8', fontSize: '11px', letterSpacing: '2px', fontWeight: 700, marginBottom: '18px' }}>SERVICES</div>
             <FooterLink href="/services" label="Marine Chandling" />
             <FooterLink href="/services" label="Ship Maintenance" />
             <FooterLink href="/services" label="Hotel Maintenance" />
@@ -82,7 +84,7 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <div style={{ color: '#E8B84B', fontSize: '11px', letterSpacing: '2px', fontWeight: 700, marginBottom: '18px' }}>CONTACT</div>
+            <div style={{ color: '#3E7CB8', fontSize: '11px', letterSpacing: '2px', fontWeight: 700, marginBottom: '18px' }}>CONTACT</div>
             <div style={{ color: '#8B9BB4', fontSize: '13px', lineHeight: 1.9 }}>
               <div>Office No 404, Murrar Building</div>
               <div>Naif Road, Deira, Dubai, UAE</div>

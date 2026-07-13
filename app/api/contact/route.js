@@ -47,7 +47,7 @@ export async function POST(request) {
       subject: `New Quote Request from ${name}`,
       html: `
         <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:24px;border:1px solid #e2e8f0;border-radius:8px;">
-          <h2 style="color:#0A1628;border-bottom:2px solid #C9922A;padding-bottom:12px;">New Quote Request — Badri Marine Website</h2>
+          <h2 style="color:#0A1628;border-bottom:2px solid #3E7CB8;padding-bottom:12px;">New Quote Request — Badri Marine Website</h2>
           <table style="width:100%;border-collapse:collapse;">
             <tr><td style="padding:10px 0;color:#666;width:140px;"><strong>Name:</strong></td><td style="padding:10px 0;color:#0A1628;">${escapeHtml(name)}</td></tr>
             <tr><td style="padding:10px 0;color:#666;"><strong>Email:</strong></td><td style="padding:10px 0;color:#0A1628;">${escapeHtml(email)}</td></tr>

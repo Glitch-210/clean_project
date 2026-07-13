@@ -26,12 +26,12 @@ input, textarea, button { font-family: inherit; }
 
 img { max-width: 100%; height: auto; }
 
-::selection { background: rgba(201,146,42,0.35); color: #E8B84B; }
-::-moz-selection { background: rgba(201,146,42,0.35); color: #E8B84B; }
+::selection { background: rgba(62,124,184,0.35); color: #3E7CB8; }
+::-moz-selection { background: rgba(62,124,184,0.35); color: #3E7CB8; }
 
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: #0A1628; }
-::-webkit-scrollbar-thumb { background: #C9922A; border-radius: 3px; }
+::-webkit-scrollbar-thumb { background: #3E7CB8; border-radius: 3px; }
 
 /* ── ANIMATIONS ── */
 @keyframes fadeUp {

@@ -23,7 +23,7 @@ function ProductTile({ p, i, visible }) {
         <img src={p.image} alt={p.name} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease', display: 'block' }}
           onError={e => { e.currentTarget.style.display='none'; }} />
       </div>
-      <div style={{ color: '#C9922A', fontSize: '15px', fontWeight: 800 }}>{p.name}</div>
+      <div style={{ color: '#3E7CB8', fontSize: '15px', fontWeight: 800 }}>{p.name}</div>
     </Link>
   );
 }
@@ -33,7 +33,7 @@ export default function OurProducts() {
   return (
     <section ref={ref} style={{ background: '#FFFFFF', padding: '100px 64px' }}>
       <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-        <div style={{ color: '#C9922A', fontSize: '12px', letterSpacing: '4px', textTransform: 'uppercase', marginBottom: '14px', fontWeight: 700 }}>What We Supply</div>
+        <div style={{ color: '#3E7CB8', fontSize: '12px', letterSpacing: '4px', textTransform: 'uppercase', marginBottom: '14px', fontWeight: 700 }}>What We Supply</div>
         <h2 style={{ color: '#0A1628', fontSize: 'clamp(22px,3.5vw,40px)', fontWeight: 900, margin: 0 }}>Our Products</h2>
       </div>
       <div className="products-home-grid" style={{ maxWidth: '1200px', margin: '0 auto' }}>

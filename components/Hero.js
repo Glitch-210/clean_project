@@ -46,7 +46,7 @@ export default function Hero() {
           position: 'absolute',
           width: `${200+i*120}px`, height: `${200+i*120}px`,
           borderRadius: '50%',
-          border: `1px solid rgba(201,146,42,${0.07-i*0.015})`,
+          border: `1px solid rgba(62,124,184,${0.07-i*0.015})`,
           right: `${-40+i*18}px`, top: `${10+i*13}%`,
           animation: `pulseRing ${3+i*0.8}s ease-in-out infinite alternate`,
           zIndex: 3, pointerEvents: 'none',
@@ -56,13 +56,13 @@ export default function Hero() {
       {/* CONTENT */}
       <div className="hero-content" style={{ position: 'absolute', inset: 0, zIndex: 4, display: 'flex', alignItems: 'center', padding: '0 64px' }}>
         <div style={{ maxWidth: '680px', width: '100%' }}>
-          <div key={`tag-${current}`} style={{ color: '#C9922A', fontSize: '12px', letterSpacing: '4px', textTransform: 'uppercase', marginBottom: '18px', fontWeight: 700, animation: 'fadeUp 0.7s ease forwards' }}>
+          <div key={`tag-${current}`} style={{ color: '#3E7CB8', fontSize: '12px', letterSpacing: '4px', textTransform: 'uppercase', marginBottom: '18px', fontWeight: 700, animation: 'fadeUp 0.7s ease forwards' }}>
             {SLIDES[current].tag}
           </div>
 
           <h1 key={`h1-${current}`} style={{ color: '#F5F5F0', fontSize: 'clamp(26px,4.5vw,58px)', fontWeight: 900, lineHeight: 1.1, margin: '0 0 22px', animation: 'fadeUp 0.7s ease 0.1s both' }}>
             {SLIDES[current].headline.split(' ').slice(0, Math.ceil(SLIDES[current].headline.split(' ').length / 2)).join(' ')}{' '}
-            <span style={{ color: '#E8B84B' }}>
+            <span style={{ color: '#3E7CB8' }}>
               {SLIDES[current].headline.split(' ').slice(Math.ceil(SLIDES[current].headline.split(' ').length / 2)).join(' ')}
             </span>
           </h1>
@@ -72,12 +72,12 @@ export default function Hero() {
           </p>
 
           <div key={`btn-${current}`} className="hero-buttons" style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', animation: 'fadeUp 0.7s ease 0.3s both' }}>
-            <a href="/services" style={{ background: 'linear-gradient(135deg,#C9922A,#E8B84B)', color: '#0A1628', padding: '14px 28px', borderRadius: '4px', fontWeight: 900, fontSize: '13px', letterSpacing: '1px', textTransform: 'uppercase', boxShadow: '0 4px 20px rgba(201,146,42,0.4)', transition: 'transform 0.2s' }}
+            <a href="/services" style={{ background: 'linear-gradient(135deg,#073255,#3E7CB8)', color: '#FFFFFF', padding: '14px 28px', borderRadius: '4px', fontWeight: 900, fontSize: '13px', letterSpacing: '1px', textTransform: 'uppercase', boxShadow: '0 4px 20px rgba(62,124,184,0.4)', transition: 'transform 0.2s' }}
               onMouseEnter={e => e.currentTarget.style.transform='translateY(-2px)'}
               onMouseLeave={e => e.currentTarget.style.transform='translateY(0)'}
             >Our Services</a>
-            <a href="/contact" style={{ border: '2px solid #C9922A', color: '#E8B84B', padding: '14px 28px', borderRadius: '4px', fontWeight: 700, fontSize: '13px', letterSpacing: '1px', textTransform: 'uppercase', transition: 'background 0.2s' }}
-              onMouseEnter={e => e.currentTarget.style.background='rgba(201,146,42,0.1)'}
+            <a href="/contact" style={{ border: '2px solid #3E7CB8', color: '#3E7CB8', padding: '14px 28px', borderRadius: '4px', fontWeight: 700, fontSize: '13px', letterSpacing: '1px', textTransform: 'uppercase', transition: 'background 0.2s' }}
+              onMouseEnter={e => e.currentTarget.style.background='rgba(62,124,184,0.1)'}
               onMouseLeave={e => e.currentTarget.style.background='transparent'}
             >Contact Us</a>
           </div>
@@ -85,7 +85,7 @@ export default function Hero() {
           <div className="hero-stats" style={{ display: 'flex', gap: '40px', marginTop: '48px', flexWrap: 'wrap', animation: 'fadeUp 0.7s ease 0.45s both' }}>
             {[['13+','Ports Covered'],['4','Emirates'],['24/7','Support']].map(([n,l]) => (
               <div key={l}>
-                <div style={{ color: '#E8B84B', fontSize: 'clamp(22px,2.5vw,28px)', fontWeight: 900 }}>{n}</div>
+                <div style={{ color: '#3E7CB8', fontSize: 'clamp(22px,2.5vw,28px)', fontWeight: 900 }}>{n}</div>
                 <div style={{ color: '#8B9BB4', fontSize: '11px', letterSpacing: '1px', marginTop: '3px' }}>{l}</div>
               </div>
             ))}
@@ -96,18 +96,18 @@ export default function Hero() {
       {/* DOTS */}
       <div style={{ position: 'absolute', bottom: '24px', left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: '8px', zIndex: 5 }}>
         {SLIDES.map((_, i) => (
-          <button key={i} onClick={() => goTo(i)} style={{ width: i === current ? '28px' : '8px', height: '8px', borderRadius: '4px', border: 'none', background: i === current ? 'linear-gradient(90deg,#C9922A,#E8B84B)' : 'rgba(255,255,255,0.3)', cursor: 'pointer', transition: 'all 0.4s ease', padding: 0 }} />
+          <button key={i} onClick={() => goTo(i)} style={{ width: i === current ? '28px' : '8px', height: '8px', borderRadius: '4px', border: 'none', background: i === current ? 'linear-gradient(90deg,#073255,#3E7CB8)' : 'rgba(255,255,255,0.3)', cursor: 'pointer', transition: 'all 0.4s ease', padding: 0 }} />
         ))}
       </div>
 
       {/* ARROWS */}
-      <button onClick={() => goTo((current - 1 + SLIDES.length) % SLIDES.length)} className="hero-arrow" style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', zIndex: 5, background: 'rgba(201,146,42,0.15)', border: '1px solid rgba(201,146,42,0.3)', color: '#E8B84B', width: '40px', height: '40px', borderRadius: '50%', cursor: 'pointer', fontSize: '18px', transition: 'background 0.2s' }}
-        onMouseEnter={e => e.currentTarget.style.background='rgba(201,146,42,0.3)'}
-        onMouseLeave={e => e.currentTarget.style.background='rgba(201,146,42,0.15)'}
+      <button onClick={() => goTo((current - 1 + SLIDES.length) % SLIDES.length)} className="hero-arrow" style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', zIndex: 5, background: 'rgba(62,124,184,0.15)', border: '1px solid rgba(62,124,184,0.3)', color: '#3E7CB8', width: '40px', height: '40px', borderRadius: '50%', cursor: 'pointer', fontSize: '18px', transition: 'background 0.2s' }}
+        onMouseEnter={e => e.currentTarget.style.background='rgba(62,124,184,0.3)'}
+        onMouseLeave={e => e.currentTarget.style.background='rgba(62,124,184,0.15)'}
       >&#8249;</button>
-      <button onClick={() => goTo((current + 1) % SLIDES.length)} className="hero-arrow" style={{ position: 'absolute', right: '16px', top: '50%', transform: 'translateY(-50%)', zIndex: 5, background: 'rgba(201,146,42,0.15)', border: '1px solid rgba(201,146,42,0.3)', color: '#E8B84B', width: '40px', height: '40px', borderRadius: '50%', cursor: 'pointer', fontSize: '18px', transition: 'background 0.2s' }}
-        onMouseEnter={e => e.currentTarget.style.background='rgba(201,146,42,0.3)'}
-        onMouseLeave={e => e.currentTarget.style.background='rgba(201,146,42,0.15)'}
+      <button onClick={() => goTo((current + 1) % SLIDES.length)} className="hero-arrow" style={{ position: 'absolute', right: '16px', top: '50%', transform: 'translateY(-50%)', zIndex: 5, background: 'rgba(62,124,184,0.15)', border: '1px solid rgba(62,124,184,0.3)', color: '#3E7CB8', width: '40px', height: '40px', borderRadius: '50%', cursor: 'pointer', fontSize: '18px', transition: 'background 0.2s' }}
+        onMouseEnter={e => e.currentTarget.style.background='rgba(62,124,184,0.3)'}
+        onMouseLeave={e => e.currentTarget.style.background='rgba(62,124,184,0.15)'}
       >&#8250;</button>
 
       <style>{`

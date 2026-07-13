@@ -19,12 +19,12 @@ export default function CookieBanner() {
       position: 'fixed', bottom: '24px', left: '24px',
       zIndex: 9998, maxWidth: '420px', width: 'calc(100vw - 48px)',
       background: '#0D1E35',
-      border: '1px solid rgba(201,146,42,0.3)',
+      border: '1px solid rgba(62,124,184,0.3)',
       borderRadius: '10px', padding: '20px 24px',
       boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
       animation: 'fadeUp 0.5s ease forwards',
     }}>
-      <div style={{ color: '#E8B84B', fontSize: '13px', fontWeight: 800, marginBottom: '8px', letterSpacing: '0.5px' }}>
+      <div style={{ color: '#3E7CB8', fontSize: '13px', fontWeight: 800, marginBottom: '8px', letterSpacing: '0.5px' }}>
         We use cookies
       </div>
       <p style={{ color: '#8B9BB4', fontSize: '13px', lineHeight: 1.65, marginBottom: '16px', margin: '0 0 16px' }}>
@@ -32,8 +32,8 @@ export default function CookieBanner() {
       </p>
       <div style={{ display: 'flex', gap: '10px' }}>
         <button onClick={accept} style={{
-          flex: 1, background: 'linear-gradient(135deg,#C9922A,#E8B84B)',
-          color: '#0A1628', border: 'none', padding: '10px 0',
+          flex: 1, background: 'linear-gradient(135deg,#073255,#3E7CB8)',
+          color: '#FFFFFF', border: 'none', padding: '10px 0',
           borderRadius: '6px', fontWeight: 800, fontSize: '12px',
           letterSpacing: '1px', textTransform: 'uppercase', cursor: 'pointer',
           transition: 'opacity 0.2s',
@@ -49,7 +49,7 @@ export default function CookieBanner() {
           letterSpacing: '1px', textTransform: 'uppercase', cursor: 'pointer',
           transition: 'border 0.2s, color 0.2s',
         }}
-          onMouseEnter={e => { e.currentTarget.style.borderColor='rgba(201,146,42,0.3)'; e.currentTarget.style.color='#F5F5F0'; }}
+          onMouseEnter={e => { e.currentTarget.style.borderColor='rgba(62,124,184,0.3)'; e.currentTarget.style.color='#F5F5F0'; }}
           onMouseLeave={e => { e.currentTarget.style.borderColor='rgba(255,255,255,0.1)'; e.currentTarget.style.color='#8B9BB4'; }}
         >Decline</button>
       </div>
