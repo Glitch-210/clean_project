@@ -16,7 +16,7 @@
 //             Badri Marine & General Trading LLC
 //           </h2>
 //           <p style={{ color: '#4A5568', fontSize: 'clamp(14px,1.5vw,17px)', lineHeight: 1.9, maxWidth: '760px', margin: '0 auto' }}>
-//             When a vessel needs supplies, there is no room for "we'll try." Badri Marine was built on a simple standard: show up, deliver right, every time. From our base in Business  Dubai, we supply ships, hotels, and construction sites across 13+ UAE ports  covering everything from deck stores and engine parts to full-scale maintenance and electrical works. No middlemen, no delays, no excuses.
+//             When a vessel needs supplies, there is no room for "we'll try." Badri Marine was built on a simple standard: show up, deliver right, every time. From our base in   Dubai, we supply ships, hotels, and construction sites across 13+ UAE ports  covering everything from deck stores and engine parts to full-scale maintenance and electrical works. No middlemen, no delays, no excuses.
 //           </p>
 //         </div>
 //       </section>
@@ -35,7 +35,7 @@
 //               When your vessel is at port and the clock is running, you cannot afford a supplier who goes quiet. Badri Marine was built for exactly that moment  the moment when supply has to be right, fast, and without excuses.
 //             </p>
 //             <p style={{ color: '#4A5568', fontSize: 'clamp(14px,1.3vw,16px)', lineHeight: 1.85, marginBottom: '32px', opacity: visible ? 1 : 0, transition: 'all 0.8s ease 0.2s' }}>
-//               Headquartered in Business Dubai, we operate across 13+ ports in 4 emirates. One call. One partner. Done.
+//               Headquartered in  Dubai, we operate across 13+ ports in 4 emirates. One call. One partner. Done.
 //             </p>
 //             <Link href="/about" style={{ display: 'inline-block', background: 'linear-gradient(135deg,#0A1628,#112240)', color: '#3E7CB8', padding: '13px 28px', borderRadius: '6px', fontWeight: 800, fontSize: '12px', letterSpacing: '1.5px', textTransform: 'uppercase', opacity: visible ? 1 : 0, transition: 'opacity 0.8s ease 0.3s, transform 0.2s, box-shadow 0.2s', boxShadow: '0 4px 16px rgba(0,0,0,0.15)' }}
 //               onMouseEnter={e => { e.currentTarget.style.transform='translateY(-2px)'; e.currentTarget.style.boxShadow='0 8px 24px rgba(0,0,0,0.25)'; }}
@@ -128,7 +128,7 @@ export default function About() {
             Badri Marine & General Trading LLC
           </h2>
           <p style={{ color: '#4A5568', fontSize: 'clamp(14px,1.5vw,17px)', lineHeight: 1.9, maxWidth: '760px', margin: '0 auto' }}>
-            When a vessel needs supplies, there is no room for "we'll try." Badri Marine was built on a simple standard: show up, deliver right, every time. From our base in Business  Dubai, we supply ships, hotels, and construction sites across 13+ UAE ports  covering everything from deck stores and engine parts to full-scale maintenance and electrical works. No middlemen, no delays, no excuses.
+            When a vessel needs supplies, there is no room for "we'll try." Badri Marine was built on a simple standard: show up, deliver right, every time. From our base in   Dubai, we supply ships, hotels, and construction sites across 13+ UAE ports  covering everything from deck stores and engine parts to full-scale maintenance and electrical works. No middlemen, no delays, no excuses.
           </p>
         </div>
       </section>
@@ -147,7 +147,7 @@ export default function About() {
               When your vessel is at port and the clock is running, you cannot afford a supplier who goes quiet. Badri Marine was built for exactly that moment  the moment when supply has to be right, fast, and without excuses.
             </p>
             <p style={{ color: '#4A5568', fontSize: 'clamp(14px,1.3vw,16px)', lineHeight: 1.85, marginBottom: '32px', opacity: visible ? 1 : 0, transition: 'all 0.8s ease 0.2s' }}>
-              Headquartered in Business Dubai, we operate across 13+ ports in 4 emirates. One call. One partner. Done.
+              Headquartered in  Dubai, we operate across 13+ ports in 4 emirates. One call. One partner. Done.
             </p>
             <Link href="/about" style={{ display: 'inline-block', background: 'linear-gradient(135deg,#0A1628,#112240)', color: '#3E7CB8', padding: '13px 28px', borderRadius: '6px', fontWeight: 800, fontSize: '12px', letterSpacing: '1.5px', textTransform: 'uppercase', opacity: visible ? 1 : 0, transition: 'opacity 0.8s ease 0.3s, transform 0.2s, box-shadow 0.2s', boxShadow: '0 4px 16px rgba(0,0,0,0.15)' }}
               onMouseEnter={e => { e.currentTarget.style.transform='translateY(-2px)'; e.currentTarget.style.boxShadow='0 8px 24px rgba(0,0,0,0.25)'; }}

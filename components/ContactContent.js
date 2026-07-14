@@ -155,12 +155,22 @@ export default function ContactContent() {
     setErrors({});
     setStatus('loading');
     try {
-      const res = await fetch('/api/contact', {
+      const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY,
+          subject: `New Quote Request from ${form.name}`,
+          from_name: form.name,
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          service: form.service || 'Not specified',
+          message: form.message || 'No message',
+        }),
       });
-      if (res.ok) {
+      const result = await res.json();
+      if (result.success) {
         setStatus('success');
         setForm({ name: '', email: '', phone: '', service: '', message: '' });
       } else {
