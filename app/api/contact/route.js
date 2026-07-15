@@ -1,73 +1,63 @@
 import { NextResponse } from 'next/server';
-import nodemailer from 'nodemailer';
 
-const buildMailHtml = (payload) => {
-  const { name, email, phone, service, message } = payload;
-
-  return `
-    <div style="font-family: Arial, sans-serif; color: #0A1628; line-height: 1.6;">
-      <h2 style="margin: 0 0 16px; color: #0A1628;">New Quote Request</h2>
-      <p><strong>Name:</strong> ${name || 'N/A'}</p>
-      <p><strong>Email:</strong> ${email || 'N/A'}</p>
-      <p><strong>Phone:</strong> ${phone || 'N/A'}</p>
-      <p><strong>Service:</strong> ${service || 'Not specified'}</p>
-      <p><strong>Message:</strong></p>
-      <div style="background: #f5f7fb; padding: 14px; border-radius: 6px;">${(message || 'No message').replace(/\n/g, '<br />')}</div>
-    </div>
-  `;
-};
+const normalizePayload = (payload = {}) => ({
+  first_name: String(payload.first_name ?? '').trim(),
+  last_name: String(payload.last_name ?? '').trim(),
+  email: String(payload.email ?? '').trim(),
+  company: String(payload.company ?? '').trim(),
+  service: String(payload.service ?? '').trim(),
+  budget: String(payload.budget ?? '').trim(),
+  message: String(payload.message ?? '').trim(),
+});
 
 export async function POST(request) {
   try {
-    const payload = await request.json().catch(() => ({}));
-    const smtpHost = process.env.SMTP_HOST;
-    const smtpPort = Number(process.env.SMTP_PORT || 587);
-    const smtpUser = process.env.SMTP_USER;
-    const smtpPass = process.env.SMTP_PASS;
-    const smtpFrom = process.env.SMTP_FROM || process.env.SMTP_USER;
-    const contactTo = process.env.CONTACT_TO_EMAIL || 'info@badrimarine.com';
+    const payload = normalizePayload(await request.json().catch(() => ({})));
 
-    if (!smtpHost || !smtpUser || !smtpPass) {
+    if (
+      payload.first_name === '' ||
+      payload.last_name === '' ||
+      payload.email === '' ||
+      payload.message === '' ||
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)
+    ) {
       return NextResponse.json(
         {
           success: false,
-          message: 'SMTP email service is not configured. Please add SMTP_HOST, SMTP_USER, and SMTP_PASS in the environment.',
+          message: 'Please complete all required fields with a valid email address.',
+        },
+        { status: 422 }
+      );
+    }
+
+    const quotaMailerUrl = process.env.QUOTE_MAILER_URL || process.env.CONTACT_MAILER_URL;
+    if (!quotaMailerUrl) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: 'The quote mailer endpoint is not configured. Add QUOTE_MAILER_URL in the environment.',
         },
         { status: 503 }
       );
     }
 
-    const transporter = nodemailer.createTransport({
-      host: smtpHost,
-      port: smtpPort,
-      secure: smtpPort === 465,
-      auth: {
-        user: smtpUser,
-        pass: smtpPass,
+    const mailResponse = await fetch(quotaMailerUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
+      body: new URLSearchParams(payload).toString(),
     });
 
-    const mailResult = await transporter.sendMail({
-      from: smtpFrom,
-      to: contactTo,
-      replyTo: payload.email || smtpUser,
-      subject: payload.subject || `New Quote Request from ${payload.name || 'Website Visitor'}`,
-      text: [
-        `Name: ${payload.name || 'N/A'}`,
-        `Email: ${payload.email || 'N/A'}`,
-        `Phone: ${payload.phone || 'N/A'}`,
-        `Service: ${payload.service || 'Not specified'}`,
-        '',
-        'Message:',
-        payload.message || 'No message',
-      ].join('\n'),
-      html: buildMailHtml(payload),
-    });
+    const mailData = await mailResponse.json().catch(() => null);
 
-    if (!mailResult?.messageId) {
+    if (!mailResponse.ok || !mailData?.ok) {
       return NextResponse.json(
-        { success: false, message: 'Email provider did not return a valid response.' },
-        { status: 502 }
+        {
+          success: false,
+          message: mailData?.error || 'Mail could not be sent. Please try again or contact us directly.',
+        },
+        { status: mailResponse.status || 500 }
       );
     }
 

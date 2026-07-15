@@ -136,20 +136,29 @@ function EmailCard({ s, i, visible }) {
 export default function ContactContent() {
   const [ref, visible] = useInView();
   const [refCards, visibleCards] = useInView();
-  const [form, setForm] = useState({ name: '', email: '', phone: '', service: '', message: '' });
+  const [form, setForm] = useState({
+    first_name: '',
+    last_name: '',
+    email: '',
+    company: '',
+    service: '',
+    budget: '',
+    message: '',
+  });
   const [status, setStatus] = useState('idle');
   const [errors, setErrors] = useState({});
 
   const validate = () => {
     const e = {};
-    if (!form.name.trim())              e.name  = 'Name is required';
-    if (!form.email.trim())             e.email = 'Email is required';
+    if (!form.first_name.trim()) e.first_name = 'First name is required';
+    if (!form.last_name.trim()) e.last_name = 'Last name is required';
+    if (!form.email.trim()) e.email = 'Email is required';
     else if (!isValidEmail(form.email)) e.email = 'Enter a valid email address';
-    if (!form.phone.trim())             e.phone = 'Phone is required';
+    if (!form.message.trim()) e.message = 'Message is required';
     return e;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const e = validate();
     if (Object.keys(e).length > 0) {
       setErrors(e);
@@ -160,25 +169,31 @@ export default function ContactContent() {
     setStatus('loading');
 
     try {
-      const subject = encodeURIComponent(`Quote Request from ${form.name}`);
-      const body = encodeURIComponent(
-        [
-          `Name: ${form.name}`,
-          `Email: ${form.email}`,
-          `Phone: ${form.phone}`,
-          `Service Required: ${form.service || 'Not specified'}`,
-          '',
-          'Requirement Details:',
-          form.message || 'No message',
-        ].join('\n')
-      );
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
 
-      window.location.href = `mailto:info@badrimarine.com?subject=${subject}&body=${body}`;
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok || !data?.success) {
+        throw new Error(data?.message || 'Unable to submit your request at this time.');
+      }
+
       setStatus('success');
-      setForm({ name: '', email: '', phone: '', service: '', message: '' });
-    } catch {
+      setForm({
+        first_name: '',
+        last_name: '',
+        email: '',
+        company: '',
+        service: '',
+        budget: '',
+        message: '',
+      });
+    } catch (error) {
       setStatus('error');
-      setErrors({ submit: 'Unable to open your email app. Please try again or contact us on WhatsApp.' });
+      setErrors({ submit: error?.message || 'Unable to submit the request. Please try again or contact us on WhatsApp.' });
     }
   };
 
@@ -240,12 +255,19 @@ export default function ContactContent() {
             )}
 
             <div className="contact-form-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', marginBottom: '14px' }}>
-              {[['name','Full Name *'],['email','Email Address *'],['phone','Phone / WhatsApp *'],['service','Service Required']].map(([k,p]) => (
+              {[
+                ['first_name', 'First Name *'],
+                ['last_name', 'Last Name *'],
+                ['email', 'Email Address *'],
+                ['company', 'Company'],
+                ['service', 'Service'],
+                ['budget', 'Budget'],
+              ].map(([k, p]) => (
                 <div key={k}>
                   <input placeholder={p} value={form[k]}
-                    onChange={e => { setForm({...form,[k]:e.target.value}); if(errors[k]) setErrors({...errors,[k]:''}); }}
+                    onChange={e => { setForm({ ...form, [k]: e.target.value }); if (errors[k]) setErrors({ ...errors, [k]: '' }); }}
                     onFocus={e => { e.target.style.borderColor='#3E7CB8'; e.target.style.boxShadow='0 0 0 3px rgba(62,124,184,0.12)'; }}
-                    onBlur={e => { e.target.style.borderColor=errors[k]?'#dc2626':'#E2E8F0'; e.target.style.boxShadow='none'; }}
+                    onBlur={e => { e.target.style.borderColor=errors[k] ? '#dc2626' : '#E2E8F0'; e.target.style.boxShadow='none'; }}
                     style={inp(k)} disabled={status==='loading'} />
                   {errors[k] && <div style={{ color: '#dc2626', fontSize: '12px', marginTop: '4px' }}>{errors[k]}</div>}
                 </div>
@@ -281,7 +303,7 @@ export default function ContactContent() {
               ) : 'Submit Request'}
             </button>
             <div style={{ color: '#4A5568', fontSize: '13px', marginTop: '10px' }}>
-              Your email app will open with a quote request draft
+              Your request will be submitted directly and we’ll follow up as soon as possible.
             </div>
           </div>
 
