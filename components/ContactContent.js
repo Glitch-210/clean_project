@@ -6,7 +6,7 @@ function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-const WEB3FORMS_ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
+const WEB3FORMS_ACCESS_KEY = 'e2929bd8-1dd8-4c41-91c1-25b3b85a262d';
 
 /* --- SVG ICONS (replacing emojis) --- */
 function IconGlobe({ size = 32, color = 'currentColor' }) {
