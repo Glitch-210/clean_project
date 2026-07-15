@@ -149,34 +149,36 @@ export default function ContactContent() {
     return e;
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     const e = validate();
-    if (Object.keys(e).length > 0) { setErrors(e); return; }
+    if (Object.keys(e).length > 0) {
+      setErrors(e);
+      return;
+    }
+
     setErrors({});
     setStatus('loading');
+
     try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          subject: `New Quote Request from ${form.name}`,
-          from_name: form.name,
-          name: form.name,
-          email: form.email,
-          phone: form.phone,
-          service: form.service || 'Not specified',
-          message: form.message || 'No message',
-        }),
-      });
-      const result = await res.json();
-      if (result.success) {
-        setStatus('success');
-        setForm({ name: '', email: '', phone: '', service: '', message: '' });
-      } else {
-        setStatus('error');
-      }
+      const subject = encodeURIComponent(`Quote Request from ${form.name}`);
+      const body = encodeURIComponent(
+        [
+          `Name: ${form.name}`,
+          `Email: ${form.email}`,
+          `Phone: ${form.phone}`,
+          `Service Required: ${form.service || 'Not specified'}`,
+          '',
+          'Requirement Details:',
+          form.message || 'No message',
+        ].join('\n')
+      );
+
+      window.location.href = `mailto:info@badrimarine.com?subject=${subject}&body=${body}`;
+      setStatus('success');
+      setForm({ name: '', email: '', phone: '', service: '', message: '' });
     } catch {
       setStatus('error');
+      setErrors({ submit: 'Unable to open your email app. Please try again or contact us on WhatsApp.' });
     }
   };
 
@@ -233,7 +235,7 @@ export default function ContactContent() {
             )}
             {status === 'error' && (
               <div style={{ background: '#fee2e2', color: '#dc2626', padding: '16px 20px', borderRadius: '6px', marginBottom: '24px', fontSize: '15px', fontWeight: 600 }}>
-                Something went wrong. Please try again or WhatsApp us directly.
+                {errors.submit || 'Something went wrong. Please try again or WhatsApp us directly.'}
               </div>
             )}
 
@@ -278,6 +280,9 @@ export default function ContactContent() {
                 </>
               ) : 'Submit Request'}
             </button>
+            <div style={{ color: '#4A5568', fontSize: '13px', marginTop: '10px' }}>
+              Your email app will open with a quote request draft
+            </div>
           </div>
 
           <div style={{ flex: 1, minWidth: '240px', opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(24px)', transition: 'all 0.8s ease 0.2s' }}>
