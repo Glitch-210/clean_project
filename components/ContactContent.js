@@ -171,30 +171,19 @@ export default function ContactContent() {
     setStatus('loading');
 
     try {
-      let res;
-      let data;
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          ...form,
+        }),
+      });
 
-      if (WEB3FORMS_ACCESS_KEY) {
-        res = await fetch('https://api.web3forms.com/submit', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-          },
-          body: JSON.stringify({
-            access_key: WEB3FORMS_ACCESS_KEY,
-            ...form,
-          }),
-        });
-      } else {
-        res = await fetch('/api/contact', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(form),
-        });
-      }
-
-      data = await res.json().catch(() => ({}));
+      const data = await res.json().catch(() => ({}));
 
       if (!res.ok || !data?.success) {
         throw new Error(data?.message || 'Unable to submit your request at this time.');
