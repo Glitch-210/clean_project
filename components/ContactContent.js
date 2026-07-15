@@ -6,6 +6,8 @@ function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
+const WEB3FORMS_ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
+
 /* --- SVG ICONS (replacing emojis) --- */
 function IconGlobe({ size = 32, color = 'currentColor' }) {
   return (
@@ -169,13 +171,30 @@ export default function ContactContent() {
     setStatus('loading');
 
     try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      });
+      let res;
+      let data;
 
-      const data = await res.json().catch(() => ({}));
+      if (WEB3FORMS_ACCESS_KEY) {
+        res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify({
+            access_key: WEB3FORMS_ACCESS_KEY,
+            ...form,
+          }),
+        });
+      } else {
+        res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(form),
+        });
+      }
+
+      data = await res.json().catch(() => ({}));
 
       if (!res.ok || !data?.success) {
         throw new Error(data?.message || 'Unable to submit your request at this time.');
