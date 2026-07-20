@@ -91,6 +91,8 @@ function PartnerCard({ p, i, visible }) {
         transform: visible ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.95)',
         transition: `opacity 0.5s ease ${(i % 7) * 0.06}s, transform 0.5s ease ${(i % 7) * 0.06}s, background 0.3s, border 0.3s`,
         boxShadow: hovered ? '0 8px 24px rgba(0,0,0,0.3)' : 'none',
+        boxSizing: 'border-box',
+        minWidth: 0,
       }}
     >
       <div style={{ height: '76px', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -99,6 +101,7 @@ function PartnerCard({ p, i, visible }) {
           alt={p.name}
           style={{
             maxHeight: '72px', maxWidth: '150px',
+            width: '100%',
             objectFit: 'contain',
             transition: 'transform 0.3s ease',
             transform: hovered ? 'scale(1.08)' : 'scale(1)',
@@ -123,8 +126,8 @@ export default function PartnersContent() {
     : PARTNERS.filter(p => p.category === activeCategory);
 
   return (
-    <main>
-      <section style={{ background: 'linear-gradient(135deg,#0A1628 0%,#112240 100%)', padding: '100px 64px 80px', position: 'relative', overflow: 'hidden' }}>
+    <main style={{ overflowX: 'hidden', width: '100%' }}>
+      <section style={{ background: 'linear-gradient(135deg,#0A1628 0%,#112240 100%)', padding: 'clamp(60px,12vw,100px) clamp(20px,6vw,64px) clamp(48px,8vw,80px)', position: 'relative', overflow: 'hidden', boxSizing: 'border-box' }}>
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 80% 50%,rgba(62,124,184,0.07),transparent 60%)', pointerEvents: 'none' }} />
         <div style={{ maxWidth: '800px', position: 'relative', zIndex: 1 }}>
           <div style={{ color: '#3E7CB8', fontSize: '12px', letterSpacing: '4px', textTransform: 'uppercase', marginBottom: '16px', fontWeight: 700 }}>Our Network</div>
@@ -146,7 +149,7 @@ export default function PartnersContent() {
         </div>
       </section>
 
-      <section ref={ref} style={{ background: 'linear-gradient(180deg,#0A1628,#112240)', padding: '80px 64px' }}>
+      <section ref={ref} style={{ background: 'linear-gradient(180deg,#0A1628,#112240)', padding: 'clamp(48px,8vw,80px) clamp(16px,6vw,64px)', boxSizing: 'border-box' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '52px', justifyContent: 'center' }}>
             {CATEGORIES.map(cat => (
@@ -179,7 +182,7 @@ export default function PartnersContent() {
         </div>
       </section>
 
-      <section style={{ background: '#F5F5F0', padding: '80px 64px', textAlign: 'center' }}>
+      <section style={{ background: '#F5F5F0', padding: 'clamp(56px,8vw,80px) clamp(20px,6vw,64px)', textAlign: 'center', boxSizing: 'border-box' }}>
         <div style={{ maxWidth: '600px', margin: '0 auto' }}>
           <h2 style={{ color: '#0A1628', fontSize: 'clamp(22px,3vw,34px)', fontWeight: 900, margin: '0 0 16px' }}>Want to Know More?</h2>
           <p style={{ color: '#4A5568', fontSize: '16px', lineHeight: 1.75, marginBottom: '32px' }}>
@@ -201,13 +204,23 @@ export default function PartnersContent() {
       <style>{`
         .partners-grid {
           display: grid;
-          grid-template-columns: repeat(7, 1fr);
+          grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
           gap: 16px;
+          width: 100%;
+          box-sizing: border-box;
         }
-        @media (max-width: 1200px) { .partners-grid { grid-template-columns: repeat(5, 1fr); } }
-        @media (max-width: 900px)  { .partners-grid { grid-template-columns: repeat(4, 1fr); } }
-        @media (max-width: 640px)  { .partners-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; } }
-        @media (max-width: 420px)  { .partners-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 640px) {
+          .partners-grid {
+            grid-template-columns: repeat(auto-fill, minmax(105px, 1fr));
+            gap: 10px;
+          }
+        }
+        @media (max-width: 380px) {
+          .partners-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+          }
+        }
       `}</style>
     </main>
   );
