@@ -6,7 +6,7 @@ function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-const WEB3FORMS_ACCESS_KEY = 'e2929bd8-1dd8-4c41-91c1-25b3b85a262d';
+const QUOTE_EMAIL = 'infobadrimarine2012@gmail.com';
 
 /* --- SVG ICONS (replacing emojis) --- */
 function IconGlobe({ size = 32, color = 'currentColor' }) {
@@ -139,12 +139,10 @@ export default function ContactContent() {
   const [ref, visible] = useInView();
   const [refCards, visibleCards] = useInView();
   const [form, setForm] = useState({
-    first_name: '',
-    last_name: '',
+    full_name: '',
     email: '',
-    company: '',
+    phone: '',
     service: '',
-    budget: '',
     message: '',
   });
   const [status, setStatus] = useState('idle');
@@ -152,15 +150,16 @@ export default function ContactContent() {
 
   const validate = () => {
     const e = {};
-    if (!form.first_name.trim()) e.first_name = 'First name is required';
-    if (!form.last_name.trim()) e.last_name = 'Last name is required';
+    if (!form.full_name.trim()) e.full_name = 'Full name is required';
     if (!form.email.trim()) e.email = 'Email is required';
     else if (!isValidEmail(form.email)) e.email = 'Enter a valid email address';
-    if (!form.message.trim()) e.message = 'Message is required';
+    if (!form.phone.trim()) e.phone = 'Phone number is required';
+    if (!form.service.trim()) e.service = 'Service required is required';
+    if (!form.message.trim()) e.message = 'Tell us about your requirement is required';
     return e;
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     const e = validate();
     if (Object.keys(e).length > 0) {
       setErrors(e);
@@ -170,39 +169,31 @@ export default function ContactContent() {
     setErrors({});
     setStatus('loading');
 
-    try {
-      const res = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-        body: JSON.stringify({
-          access_key: WEB3FORMS_ACCESS_KEY,
-          ...form,
-        }),
-      });
+    const subject = encodeURIComponent(`Quote Request from ${form.full_name}`);
+    const body = encodeURIComponent(
+      [
+        'Full Name: ' + form.full_name,
+        'Email: ' + form.email,
+        'Phone: ' + form.phone,
+        'Service Required: ' + form.service,
+        '',
+        'Tell us about your requirement:',
+        form.message,
+      ].join('\n')
+    );
 
-      const data = await res.json().catch(() => ({}));
+    const mailtoLink = `mailto:${QUOTE_EMAIL}?subject=${subject}&body=${body}`;
 
-      if (!res.ok || !data?.success) {
-        throw new Error(data?.message || 'Unable to submit your request at this time.');
-      }
+    window.location.href = mailtoLink;
 
-      setStatus('success');
-      setForm({
-        first_name: '',
-        last_name: '',
-        email: '',
-        company: '',
-        service: '',
-        budget: '',
-        message: '',
-      });
-    } catch (error) {
-      setStatus('error');
-      setErrors({ submit: error?.message || 'Unable to submit the request. Please try again or contact us on WhatsApp.' });
-    }
+    setStatus('success');
+    setForm({
+      full_name: '',
+      email: '',
+      phone: '',
+      service: '',
+      message: '',
+    });
   };
 
   const inp = (field) => ({
@@ -264,12 +255,10 @@ export default function ContactContent() {
 
             <div className="contact-form-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', marginBottom: '14px' }}>
               {[
-                ['first_name', 'First Name *'],
-                ['last_name', 'Last Name *'],
+                ['full_name', 'Full Name *'],
                 ['email', 'Email Address *'],
-                ['company', 'Company'],
-                ['service', 'Service'],
-                ['budget', 'Budget'],
+                ['phone', 'Phone *'],
+                ['service', 'Service Required *'],
               ].map(([k, p]) => (
                 <div key={k}>
                   <input placeholder={p} value={form[k]}
@@ -282,13 +271,14 @@ export default function ContactContent() {
               ))}
             </div>
 
-            <textarea placeholder="Tell us about your requirement - vessel name, port, items needed, timeline..."
+            <textarea placeholder="Tell us about your requirement"
               rows={6} value={form.message}
-              onChange={e => setForm({...form,message:e.target.value})}
+              onChange={e => { setForm({...form, message: e.target.value}); if (errors.message) setErrors({ ...errors, message: '' }); }}
               onFocus={e => { e.target.style.borderColor='#3E7CB8'; e.target.style.boxShadow='0 0 0 3px rgba(62,124,184,0.12)'; }}
-              onBlur={e => { e.target.style.borderColor='#E2E8F0'; e.target.style.boxShadow='none'; }}
+              onBlur={e => { e.target.style.borderColor=errors.message ? '#dc2626' : '#E2E8F0'; e.target.style.boxShadow='none'; }}
               style={{ ...inp('message'), resize: 'vertical', marginBottom: '18px', display: 'block' }}
               disabled={status==='loading'} />
+            {errors.message && <div style={{ color: '#dc2626', fontSize: '12px', marginTop: '-10px', marginBottom: '14px' }}>{errors.message}</div>}
 
             <button onClick={handleSubmit} disabled={status==='loading'} style={{
               background: status==='loading' ? 'rgba(62,124,184,0.5)' : 'linear-gradient(135deg,#073255,#3E7CB8)',
@@ -306,12 +296,12 @@ export default function ContactContent() {
               {status==='loading' ? (
                 <>
                   <span style={{ width:'16px', height:'16px', border:'2px solid #0A1628', borderTop:'2px solid transparent', borderRadius:'50%', display:'inline-block', animation:'spin 0.8s linear infinite' }} />
-                  Sending...
+                  Opening Mail...
                 </>
-              ) : 'Submit Request'}
+              ) : 'Send Quote'}
             </button>
             <div style={{ color: '#4A5568', fontSize: '13px', marginTop: '10px' }}>
-              Your request will be submitted directly and we’ll follow up as soon as possible.
+              Your email app will open with the quote details pre-filled and addressed to infobadrimarine2012@gmail.com.
             </div>
           </div>
 
