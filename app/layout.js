@@ -29,7 +29,7 @@ const schemaMarkup = {
   address: {
     '@type': 'PostalAddress',
     streetAddress: 'Office No 404, Murrar Building, Naif Road, Deira, Dubai',
-    addressLocality: 'Business Bay',
+    addressLocality: 'Deira',
     addressRegion: 'Dubai',
     addressCountry: 'AE',
   },
@@ -53,12 +53,12 @@ export default function RootLayout({ children }) {
         <meta name="theme-color" content="#0A1628" />
         <meta name="google-site-verification" content="DK2Cojp1FyymCata9gGyNzURdliFV7J6jwP31mvUtXo" />
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-N034SG16Z2" />
-        <script dangerouslySetInnerHTML={{ __html: 
+        <script dangerouslySetInnerHTML={{ __html: `
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
           gtag('config', 'G-N034SG16Z2');
-        }} />
+        `}} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaMarkup) }} />
       </head>
       <body>
