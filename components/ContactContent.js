@@ -300,11 +300,7 @@ export default function ContactContent() {
                 </>
               ) : 'Send Quote'}
             </button>
-                
-          <div style={{ color: '#4A5568', fontSize: '13px', marginTop: '10px' }}>
-             badrimarine.com
-        {status === 'success' && ( </div> 
-         </div>
+          </div>
 
           <div style={{ flex: 1, minWidth: '240px', opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(24px)', transition: 'all 0.8s ease 0.2s' }}>
             <h2 style={{ color: '#0A1628', fontSize: '28px', fontWeight: 900, margin: '0 0 32px' }}>Contact Details</h2>
