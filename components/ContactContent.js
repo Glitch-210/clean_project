@@ -301,9 +301,9 @@ export default function ContactContent() {
               ) : 'Send Quote'}
             </button>
                 
-          //  <div style={{ color: '#4A5568', fontSize: '13px', marginTop: '10px' }}>
-             // Your email app will open with the quote details pre-filled and addressed to infobadrimarine2012@gmail.com.
-        //   {status === 'success' && ( </div> 
+          <div style={{ color: '#4A5568', fontSize: '13px', marginTop: '10px' }}>
+             badrimarine.com
+        {status === 'success' && ( </div> 
          </div>
 
           <div style={{ flex: 1, minWidth: '240px', opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(24px)', transition: 'all 0.8s ease 0.2s' }}>
