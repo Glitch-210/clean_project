@@ -361,9 +361,9 @@ export default function AboutContent() {
             {[
               [<IconBuilding color="#3E7CB8" />, 'Company',  'Badri Marine & General Trading LLC'],
               [<IconCalendar color="#3E7CB8" />, 'Est.',     'Since 2014'],
-              [<IconPin color="#3E7CB8" />, 'Location', 'Office No 404, Murrar Building, Naif Road, Deira, Dubai, UAE'],
+              [<IconPin color="#3E7CB8" />, 'Location', 'Office 303, Murar Building, Naif Road Deira, Dubai UAE'],
               [<IconMail color="#3E7CB8" />,  'Email',    'info@badrimarine.com'],
-              [<IconPhone color="#3E7CB8" />, 'WhatsApp', '+971 52 872 4060'],
+              [<IconPhone color="#3E7CB8" />, 'WhatsApp', '+971 56 490 8143'],
               [<IconClock color="#3E7CB8" />, 'Hours',    'Monday to Saturday, 9AM to 6PM'],
             ].map(([icon, label, val]) => (
               <div key={label} style={{ display: 'flex', gap: '16px', marginBottom: '24px', alignItems: 'flex-start' }}>

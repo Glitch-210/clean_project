@@ -35,7 +35,7 @@ export default function Navbar() {
         borderBottom: '1px solid rgba(62,124,184,0.15)',
       }}>
         <span>✉ info@badrimarine.com</span>
-        <span>📱 +971 52 872 4060</span>
+        <span>📱 +971 56 490 8143</span>
       </div>
 
       {/* NAVBAR */}
@@ -114,7 +114,7 @@ export default function Navbar() {
       )}
 
       {/* WHATSAPP */}
-      <a href="https://wa.me/971528724060?text=Hi%2C%20I%20need%20a%20quote%20from%20Badri%20Marine"
+      <a href="https://wa.me/971564908143?text=Hi%2C%20I%20need%20a%20quote%20from%20Badri%20Marine"
         target="_blank" rel="noopener noreferrer" className="wa-btn"
         style={{
           position: 'fixed', bottom: '24px', right: '24px', zIndex: 999,

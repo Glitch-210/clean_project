@@ -158,9 +158,9 @@ export default function About() {
           <div style={{ flex: 1, minWidth: '260px', background: 'linear-gradient(135deg,#0A1628,#112240)', borderRadius: '10px', padding: '48px 36px', opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateX(28px)', transition: 'all 0.8s ease 0.2s', boxShadow: '0 24px 64px rgba(0,0,0,0.2)' }}>
             <div style={{ color: '#3E7CB8', fontSize: '12px', letterSpacing: '3px', fontWeight: 700, marginBottom: '28px' }}>OUR REACH</div>
             {[
-              [<IconPin color="#3E7CB8" />, 'Office No 404, Murrar Building, Naif Road, Deira, Dubai, UAE'],
+              [<IconPin color="#3E7CB8" />, 'Office 303, Murar Building, Naif Road Deira, Dubai UAE'],
               [<IconMail color="#3E7CB8" />, 'info@badrimarine.com'],
-              [<IconPhone color="#3E7CB8" />, '+971 52 872 4060'],
+              [<IconPhone color="#3E7CB8" />, '+971 56 490 8143'],
               [<IconClock color="#3E7CB8" />, 'Mon to Sat: 9AM to 6PM'],
             ].map(([icon, text]) => (
               <div key={text} style={{ display: 'flex', gap: '14px', marginBottom: '20px', alignItems: 'flex-start' }}>

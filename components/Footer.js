@@ -86,13 +86,13 @@ export default function Footer() {
           <div>
             <div style={{ color: '#3E7CB8', fontSize: '11px', letterSpacing: '2px', fontWeight: 700, marginBottom: '18px' }}>CONTACT</div>
             <div style={{ color: '#8B9BB4', fontSize: '13px', lineHeight: 1.9 }}>
-              <div>Office No 404, Murrar Building</div>
-              <div>Naif Road, Deira, Dubai, UAE</div>
+              <div>Office 303, Murar Building</div>
+              <div>Naif Road Deira, Dubai UAE</div>
               <div style={{ marginTop: '12px' }}>info@badrimarine.com</div>
               <div>ali@badrimarine.com</div>
               <div>sales@badrimarine.com</div>
               <div>purchase@badrimarine.com</div>
-              <div style={{ marginTop: '12px' }}>+971 52 872 4060</div>
+              <div style={{ marginTop: '12px' }}>+971 56 490 8143</div>
             </div>
           </div>
         </div>

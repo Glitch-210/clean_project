@@ -24,11 +24,11 @@ const schemaMarkup = {
   name: 'Badri Marine & General Trading LLC',
   description: 'Ship chandler and general trading company in Dubai, UAE.',
   url: 'https://badrimarine.com',
-  telephone: '+971528724060',
+  telephone: '+971564908143',
   email: 'info@badrimarine.com',
   address: {
     '@type': 'PostalAddress',
-    streetAddress: 'Office No 404, Murrar Building, Naif Road, Deira, Dubai',
+    streetAddress: 'Office 303, Murar Building, Naif Road Deira, Dubai',
     addressLocality: 'Deira',
     addressRegion: 'Dubai',
     addressCountry: 'AE',

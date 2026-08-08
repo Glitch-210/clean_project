@@ -263,9 +263,9 @@ export default function ContactContent() {
                 <div key={k}>
                   <input placeholder={p} value={form[k]}
                     onChange={e => { setForm({ ...form, [k]: e.target.value }); if (errors[k]) setErrors({ ...errors, [k]: '' }); }}
-                    onFocus={e => { e.target.style.borderColor='#3E7CB8'; e.target.style.boxShadow='0 0 0 3px rgba(62,124,184,0.12)'; }}
-                    onBlur={e => { e.target.style.borderColor=errors[k] ? '#dc2626' : '#E2E8F0'; e.target.style.boxShadow='none'; }}
-                    style={inp(k)} disabled={status==='loading'} />
+                    onFocus={e => { e.target.style.borderColor = '#3E7CB8'; e.target.style.boxShadow = '0 0 0 3px rgba(62,124,184,0.12)'; }}
+                    onBlur={e => { e.target.style.borderColor = errors[k] ? '#dc2626' : '#E2E8F0'; e.target.style.boxShadow = 'none'; }}
+                    style={inp(k)} disabled={status === 'loading'} />
                   {errors[k] && <div style={{ color: '#dc2626', fontSize: '12px', marginTop: '4px' }}>{errors[k]}</div>}
                 </div>
               ))}
@@ -273,29 +273,29 @@ export default function ContactContent() {
 
             <textarea placeholder="Tell us about your requirement"
               rows={6} value={form.message}
-              onChange={e => { setForm({...form, message: e.target.value}); if (errors.message) setErrors({ ...errors, message: '' }); }}
-              onFocus={e => { e.target.style.borderColor='#3E7CB8'; e.target.style.boxShadow='0 0 0 3px rgba(62,124,184,0.12)'; }}
-              onBlur={e => { e.target.style.borderColor=errors.message ? '#dc2626' : '#E2E8F0'; e.target.style.boxShadow='none'; }}
+              onChange={e => { setForm({ ...form, message: e.target.value }); if (errors.message) setErrors({ ...errors, message: '' }); }}
+              onFocus={e => { e.target.style.borderColor = '#3E7CB8'; e.target.style.boxShadow = '0 0 0 3px rgba(62,124,184,0.12)'; }}
+              onBlur={e => { e.target.style.borderColor = errors.message ? '#dc2626' : '#E2E8F0'; e.target.style.boxShadow = 'none'; }}
               style={{ ...inp('message'), resize: 'vertical', marginBottom: '18px', display: 'block' }}
-              disabled={status==='loading'} />
+              disabled={status === 'loading'} />
             {errors.message && <div style={{ color: '#dc2626', fontSize: '12px', marginTop: '-10px', marginBottom: '14px' }}>{errors.message}</div>}
 
-            <button onClick={handleSubmit} disabled={status==='loading'} style={{
-              background: status==='loading' ? 'rgba(62,124,184,0.5)' : 'linear-gradient(135deg,#073255,#3E7CB8)',
+            <button onClick={handleSubmit} disabled={status === 'loading'} style={{
+              background: status === 'loading' ? 'rgba(62,124,184,0.5)' : 'linear-gradient(135deg,#073255,#3E7CB8)',
               color: '#FFFFFF', border: 'none', padding: '15px 40px',
               borderRadius: '6px', fontWeight: 900, fontSize: '14px',
               letterSpacing: '1px', textTransform: 'uppercase',
-              cursor: status==='loading' ? 'not-allowed' : 'pointer',
+              cursor: status === 'loading' ? 'not-allowed' : 'pointer',
               display: 'flex', alignItems: 'center', gap: '10px',
               boxShadow: '0 4px 16px rgba(62,124,184,0.35)',
               transition: 'opacity 0.2s, transform 0.2s',
             }}
-              onMouseEnter={e => { if(status!=='loading'){ e.currentTarget.style.transform='translateY(-2px)'; e.currentTarget.style.boxShadow='0 8px 24px rgba(62,124,184,0.5)'; }}}
-              onMouseLeave={e => { e.currentTarget.style.transform='translateY(0)'; e.currentTarget.style.boxShadow='0 4px 16px rgba(62,124,184,0.35)'; }}
+              onMouseEnter={e => { if (status !== 'loading') { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(62,124,184,0.5)'; } }}
+              onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 16px rgba(62,124,184,0.35)'; }}
             >
-              {status==='loading' ? (
+              {status === 'loading' ? (
                 <>
-                  <span style={{ width:'16px', height:'16px', border:'2px solid #0A1628', borderTop:'2px solid transparent', borderRadius:'50%', display:'inline-block', animation:'spin 0.8s linear infinite' }} />
+                  <span style={{ width: '16px', height: '16px', border: '2px solid #0A1628', borderTop: '2px solid transparent', borderRadius: '50%', display: 'inline-block', animation: 'spin 0.8s linear infinite' }} />
                   Opening Mail...
                 </>
               ) : 'Send Quote'}
@@ -305,10 +305,10 @@ export default function ContactContent() {
           <div style={{ flex: 1, minWidth: '240px', opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(24px)', transition: 'all 0.8s ease 0.2s' }}>
             <h2 style={{ color: '#0A1628', fontSize: '28px', fontWeight: 900, margin: '0 0 32px' }}>Contact Details</h2>
             {[
-              [<IconPin color="#F5F5F0" />,'Office Address','Office No 404, Murrar Building, Naif Road, Deira, Dubai, UAE'],
-              [<IconPhone color="#F5F5F0" />,'WhatsApp','+971 52 872 4060'],
-              [<IconClock color="#F5F5F0" />,'Working Hours','Monday to Saturday\n9:00 AM to 6:00 PM'],
-            ].map(([icon,label,val]) => (
+              [<IconPin color="#F5F5F0" />, 'Office Address', 'Office 303, Murar Building, Naif Road Deira, Dubai UAE'],
+              [<IconPhone color="#F5F5F0" />, 'WhatsApp', '+971 56 490 8143'],
+              [<IconClock color="#F5F5F0" />, 'Working Hours', 'Monday to Saturday\n9:00 AM to 6:00 PM'],
+            ].map(([icon, label, val]) => (
               <div key={label} style={{ marginBottom: '24px', display: 'flex', gap: '14px', alignItems: 'flex-start', paddingBottom: '24px', borderBottom: '1px solid #E2E8F0' }}>
                 <div style={{ width: '44px', height: '44px', background: 'linear-gradient(135deg,#0A1628,#112240)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>{icon}</div>
                 <div>
@@ -317,18 +317,18 @@ export default function ContactContent() {
                 </div>
               </div>
             ))}
-            <a href="https://wa.me/971528724060?text=Hi%2C%20I%20am%20interested%20in%20getting%20a%20quote%20from%20Badri%20Marine%20for%20marine%20supplies.%20Please%20get%20in%20touch."
+            <a href="https://wa.me/971564908143?text=Hi%2C%20I%20am%20interested%20in%20getting%20a%20quote%20from%20Badri%20Marine%20for%20marine%20supplies.%20Please%20get%20in%20touch."
               target="_blank" rel="noopener noreferrer" style={{
-              display: 'flex', alignItems: 'center', gap: '12px',
-              background: '#25D366', color: 'white',
-              padding: '15px 20px', borderRadius: '6px',
-              fontWeight: 700, fontSize: '15px',
-              transition: 'opacity 0.2s, transform 0.2s',
-            }}
-              onMouseEnter={e => { e.currentTarget.style.opacity='0.9'; e.currentTarget.style.transform='translateY(-2px)'; }}
-              onMouseLeave={e => { e.currentTarget.style.opacity='1'; e.currentTarget.style.transform='translateY(0)'; }}
+                display: 'flex', alignItems: 'center', gap: '12px',
+                background: '#25D366', color: 'white',
+                padding: '15px 20px', borderRadius: '6px',
+                fontWeight: 700, fontSize: '15px',
+                transition: 'opacity 0.2s, transform 0.2s',
+              }}
+              onMouseEnter={e => { e.currentTarget.style.opacity = '0.9'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
+              onMouseLeave={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.transform = 'translateY(0)'; }}
             >
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" /></svg>
               Message Us on WhatsApp
             </a>
           </div>
@@ -347,8 +347,8 @@ export default function ContactContent() {
         />
         <div style={{ position: 'absolute', top: '24px', left: '24px', background: 'rgba(10,22,40,0.92)', border: '1px solid rgba(62,124,184,0.3)', borderRadius: '8px', padding: '16px 20px', backdropFilter: 'blur(8px)' }}>
           <div style={{ color: '#3E7CB8', fontSize: '13px', fontWeight: 800, marginBottom: '4px' }}>BADRI MARINE</div>
-          <div style={{ color: '#8B9BB4', fontSize: '12px' }}>Office No 404, Murrar Building</div>
-          <div style={{ color: '#8B9BB4', fontSize: '12px' }}>Naif Road, Deira, Dubai, UAE</div>
+          <div style={{ color: '#8B9BB4', fontSize: '12px' }}>Office 303, Murar Building</div>
+          <div style={{ color: '#8B9BB4', fontSize: '12px' }}>Naif Road Deira, Dubai UAE</div>
         </div>
       </section>
 
