@@ -2,13 +2,13 @@
 import { useState, useEffect } from 'react';
 
 const SLIDES = [
-  { image: '/image1.jpg', tag: 'Marine Chandling Excellence', headline: 'Your Trusted Partner for Marine & General Trading', sub: 'Delivering precision supply solutions to vessels across 13+ UAE ports  on time, every time.' },
-  { image: '/image2.jpg', tag: 'Ship Supply Specialists', headline: 'Everything Your Vessel Needs, Right at Port', sub: 'From deck stores to provisions, safety equipment to spare parts  we stock it, we deliver it.' },
-  { image: '/image3.jpg', tag: 'UAE-Wide Coverage', headline: 'Four Emirates. Thirteen Ports. One Reliable Partner.', sub: 'Abu Dhabi, Dubai, Sharjah, Ras Al Khaimah  we operate wherever your fleet sails.' },
-  { image: '/image4.jpg', tag: 'Quality Assured', headline: 'Every Product Inspected Before It Reaches You', sub: 'We hold ourselves to marine-grade standards  because your operations depend on it.' },
-  { image: '/image5.jpg', tag: 'General Trading', headline: 'Marine, Hotel and Construction  We Supply It All', sub: 'Beyond the sea - our trading division serves hospitality and construction projects across Dubai.' },
-  { image: '/image6.jpg', tag: 'Fast Delivery', headline: 'Port to Port. No Delays. No Excuses.', sub: 'When your vessel is on schedule, every hour counts. We move fast so you never have to wait.' },
-  { image: '/image7.jpg', tag: 'Trusted Since Day One', headline: 'Built on Reliability. Proven by Results.', sub: 'Shipping companies across the UAE trust Badri Marine because we show up  every single time.' },
+  { image: '/image1.webp', tag: 'Marine Chandling Excellence', headline: 'Your Trusted Partner for Marine & General Trading', sub: 'Delivering precision supply solutions to vessels across 13+ UAE ports  on time, every time.' },
+  { image: '/image2.webp', tag: 'Ship Supply Specialists', headline: 'Everything Your Vessel Needs, Right at Port', sub: 'From deck stores to provisions, safety equipment to spare parts  we stock it, we deliver it.' },
+  { image: '/image3.webp', tag: 'UAE-Wide Coverage', headline: 'Four Emirates. Thirteen Ports. One Reliable Partner.', sub: 'Abu Dhabi, Dubai, Sharjah, Ras Al Khaimah  we operate wherever your fleet sails.' },
+  { image: '/image4.webp', tag: 'Quality Assured', headline: 'Every Product Inspected Before It Reaches You', sub: 'We hold ourselves to marine-grade standards  because your operations depend on it.' },
+  { image: '/image5.webp', tag: 'General Trading', headline: 'Marine, Hotel and Construction  We Supply It All', sub: 'Beyond the sea - our trading division serves hospitality and construction projects across Dubai.' },
+  { image: '/image6.webp', tag: 'Fast Delivery', headline: 'Port to Port. No Delays. No Excuses.', sub: 'When your vessel is on schedule, every hour counts. We move fast so you never have to wait.' },
+  { image: '/image7.webp', tag: 'Trusted Since Day One', headline: 'Built on Reliability. Proven by Results.', sub: 'Shipping companies across the UAE trust Badri Marine because we show up  every single time.' },
 ];
 
 export default function Hero() {
@@ -126,4 +126,4 @@ export default function Hero() {
       `}</style>
     </section>
   );
-}
+                            }
