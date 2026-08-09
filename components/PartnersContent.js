@@ -3,49 +3,49 @@ import { useState, useEffect, useRef } from 'react';
 
 const PARTNERS = [
   // Construction
-  { file: 'logo1.png',  name: 'Sika',                      category: 'Construction' },
-  { file: 'logo2.png',  name: 'Fosroc',                    category: 'Construction' },
-  { file: 'logo3.png',  name: 'BASF',                      category: 'Construction' },
-  { file: 'logo4.png',  name: 'RAK Ceramics',              category: 'Construction' },
-  { file: 'logo5.png',  name: 'National Paints',           category: 'Construction' },
-  { file: 'logo6.png',  name: 'Uken',                      category: 'Construction' },
-  { file: 'logo10.png', name: 'Kanchan',                   category: 'Construction' },
-  { file: 'logo12.png', name: 'Legrand',                   category: 'Construction' },
-  { file: 'logo13.png', name: 'Schneider Electric',        category: 'Construction' },
-  { file: 'logo24.png', name: 'Honeywell',                 category: 'Construction' },
-  { file: 'logo25.png', name: '3M',                        category: 'Construction' },
-  { file: 'logo26.png', name: 'DuPont',                    category: 'Construction' },
-  { file: 'logo33.png', name: 'Ariston',                   category: 'Construction' },
+  { file: 'logo1.webp',  name: 'Sika',                      category: 'Construction' },
+  { file: 'logo2.webp',  name: 'Fosroc',                    category: 'Construction' },
+  { file: 'logo3.webp',  name: 'BASF',                      category: 'Construction' },
+  { file: 'logo4.webp',  name: 'RAK Ceramics',              category: 'Construction' },
+  { file: 'logo5.webp',  name: 'National Paints',           category: 'Construction' },
+  { file: 'logo6.webp',  name: 'Uken',                      category: 'Construction' },
+  { file: 'logo10.webp', name: 'Kanchan',                   category: 'Construction' },
+  { file: 'logo12.webp', name: 'Legrand',                   category: 'Construction' },
+  { file: 'logo13.webp', name: 'Schneider Electric',        category: 'Construction' },
+  { file: 'logo24.webp', name: 'Honeywell',                 category: 'Construction' },
+  { file: 'logo25.webp', name: '3M',                        category: 'Construction' },
+  { file: 'logo26.webp', name: 'DuPont',                    category: 'Construction' },
+  { file: 'logo33.webp', name: 'Ariston',                   category: 'Construction' },
   // Industrial
-  { file: 'logo14.png', name: 'SKF',                       category: 'Industrial' },
-  { file: 'logo15.png', name: 'NSK',                       category: 'Industrial' },
-  { file: 'logo16.png', name: 'ESAB',                      category: 'Industrial' },
-  { file: 'logo17.png', name: 'Lincoln Electric',          category: 'Industrial' },
-  { file: 'logo18.png', name: 'Bosch',                     category: 'Industrial' },
-  { file: 'logo30.png', name: 'Shell',                     category: 'Industrial' },
-  { file: 'logo31.png', name: 'TotalEnergies',             category: 'Industrial' },
-  { file: 'logo32.png', name: 'Castrol',                   category: 'Industrial' },
-  { file: 'logo34.png', name: 'Gates',                     category: 'Industrial' },
-  { file: 'logo35.png', name: 'Makita',                    category: 'Industrial' },
-  { file: 'logo36.png', name: 'DeWalt',                    category: 'Industrial' },
-  { file: 'logo37.png', name: 'Hilti',                     category: 'Industrial' },
-  { file: 'logo38.png', name: 'Stanley',                   category: 'Industrial' },
+  { file: 'logo14.webp', name: 'SKF',                       category: 'Industrial' },
+  { file: 'logo15.webp', name: 'NSK',                       category: 'Industrial' },
+  { file: 'logo16.webp', name: 'ESAB',                      category: 'Industrial' },
+  { file: 'logo17.webp', name: 'Lincoln Electric',          category: 'Industrial' },
+  { file: 'logo18.webp', name: 'Bosch',                     category: 'Industrial' },
+  { file: 'logo30.webp', name: 'Shell',                     category: 'Industrial' },
+  { file: 'logo31.webp', name: 'TotalEnergies',             category: 'Industrial' },
+  { file: 'logo32.webp', name: 'Castrol',                   category: 'Industrial' },
+  { file: 'logo34.webp', name: 'Gates',                     category: 'Industrial' },
+  { file: 'logo35.webp', name: 'Makita',                    category: 'Industrial' },
+  { file: 'logo36.webp', name: 'DeWalt',                    category: 'Industrial' },
+  { file: 'logo37.webp', name: 'Hilti',                     category: 'Industrial' },
+  { file: 'logo38.webp', name: 'Stanley',                   category: 'Industrial' },
   // Marine
-  { file: 'logo19.png', name: 'Graco',                     category: 'Marine' },
-  { file: 'logo20.png', name: 'Cummins',                   category: 'Marine' },
-  { file: 'logo21.png', name: 'Volvo Penta',                category: 'Marine' },
-  { file: 'logo22.png', name: 'VIKING Life-Saving',        category: 'Marine' },
-  { file: 'logo23.png', name: 'Survitec',                  category: 'Marine' },
-  { file: 'logo39.png', name: 'Jotun',                     category: 'Marine' },
-  { file: 'logo40.png', name: 'Hempel',                    category: 'Marine' },
-  { file: 'logo41.png', name: 'International (AkzoNobel)', category: 'Marine' },
+  { file: 'logo19.webp', name: 'Graco',                     category: 'Marine' },
+  { file: 'logo20.webp', name: 'Cummins',                   category: 'Marine' },
+  { file: 'logo21.webp', name: 'Volvo Penta',                category: 'Marine' },
+  { file: 'logo22.webp', name: 'VIKING Life-Saving',        category: 'Marine' },
+  { file: 'logo23.webp', name: 'Survitec',                  category: 'Marine' },
+  { file: 'logo39.webp', name: 'Jotun',                     category: 'Marine' },
+  { file: 'logo40.webp', name: 'Hempel',                    category: 'Marine' },
+  { file: 'logo41.webp', name: 'International (AkzoNobel)', category: 'Marine' },
   // Hotel
-  { file: 'logo7.png',  name: 'Diversey',                  category: 'Hotel' },
-  { file: 'logo8.png',  name: 'Ecolab',                    category: 'Hotel' },
-  { file: 'logo9.png',  name: 'Kärcher',                   category: 'Hotel' },
-  { file: 'logo27.png', name: 'Winterhalter',               category: 'Hotel' },
-  { file: 'logo28.png', name: 'Tork',                       category: 'Hotel' },
-  { file: 'logo29.png', name: 'Kimberly-Clark Professional', category: 'Hotel' },
+  { file: 'logo7.webp',  name: 'Diversey',                  category: 'Hotel' },
+  { file: 'logo8.webp',  name: 'Ecolab',                    category: 'Hotel' },
+  { file: 'logo9.webp',  name: 'Kärcher',                   category: 'Hotel' },
+  { file: 'logo27.webp', name: 'Winterhalter',               category: 'Hotel' },
+  { file: 'logo28.webp', name: 'Tork',                       category: 'Hotel' },
+  { file: 'logo29.webp', name: 'Kimberly-Clark Professional', category: 'Hotel' },
 ];
 
 const CATEGORIES = ['All', 'Marine', 'Industrial', 'Construction', 'Hotel'];
@@ -91,8 +91,6 @@ function PartnerCard({ p, i, visible }) {
         transform: visible ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.95)',
         transition: `opacity 0.5s ease ${(i % 7) * 0.06}s, transform 0.5s ease ${(i % 7) * 0.06}s, background 0.3s, border 0.3s`,
         boxShadow: hovered ? '0 8px 24px rgba(0,0,0,0.3)' : 'none',
-        boxSizing: 'border-box',
-        minWidth: 0,
       }}
     >
       <div style={{ height: '76px', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -101,7 +99,6 @@ function PartnerCard({ p, i, visible }) {
           alt={p.name}
           style={{
             maxHeight: '72px', maxWidth: '150px',
-            width: '100%',
             objectFit: 'contain',
             transition: 'transform 0.3s ease',
             transform: hovered ? 'scale(1.08)' : 'scale(1)',
@@ -126,8 +123,8 @@ export default function PartnersContent() {
     : PARTNERS.filter(p => p.category === activeCategory);
 
   return (
-    <main style={{ overflowX: 'hidden', width: '100%' }}>
-      <section style={{ background: 'linear-gradient(135deg,#0A1628 0%,#112240 100%)', padding: 'clamp(60px,12vw,100px) clamp(20px,6vw,64px) clamp(48px,8vw,80px)', position: 'relative', overflow: 'hidden', boxSizing: 'border-box' }}>
+    <main>
+      <section style={{ background: 'linear-gradient(135deg,#0A1628 0%,#112240 100%)', padding: '100px 64px 80px', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 80% 50%,rgba(62,124,184,0.07),transparent 60%)', pointerEvents: 'none' }} />
         <div style={{ maxWidth: '800px', position: 'relative', zIndex: 1 }}>
           <div style={{ color: '#3E7CB8', fontSize: '12px', letterSpacing: '4px', textTransform: 'uppercase', marginBottom: '16px', fontWeight: 700 }}>Our Network</div>
@@ -149,7 +146,7 @@ export default function PartnersContent() {
         </div>
       </section>
 
-      <section ref={ref} style={{ background: 'linear-gradient(180deg,#0A1628,#112240)', padding: 'clamp(48px,8vw,80px) clamp(16px,6vw,64px)', boxSizing: 'border-box' }}>
+      <section ref={ref} style={{ background: 'linear-gradient(180deg,#0A1628,#112240)', padding: '80px 64px' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '52px', justifyContent: 'center' }}>
             {CATEGORIES.map(cat => (
@@ -182,7 +179,7 @@ export default function PartnersContent() {
         </div>
       </section>
 
-      <section style={{ background: '#F5F5F0', padding: 'clamp(56px,8vw,80px) clamp(20px,6vw,64px)', textAlign: 'center', boxSizing: 'border-box' }}>
+      <section style={{ background: '#F5F5F0', padding: '80px 64px', textAlign: 'center' }}>
         <div style={{ maxWidth: '600px', margin: '0 auto' }}>
           <h2 style={{ color: '#0A1628', fontSize: 'clamp(22px,3vw,34px)', fontWeight: 900, margin: '0 0 16px' }}>Want to Know More?</h2>
           <p style={{ color: '#4A5568', fontSize: '16px', lineHeight: 1.75, marginBottom: '32px' }}>
@@ -204,23 +201,13 @@ export default function PartnersContent() {
       <style>{`
         .partners-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+          grid-template-columns: repeat(7, 1fr);
           gap: 16px;
-          width: 100%;
-          box-sizing: border-box;
         }
-        @media (max-width: 640px) {
-          .partners-grid {
-            grid-template-columns: repeat(auto-fill, minmax(105px, 1fr));
-            gap: 10px;
-          }
-        }
-        @media (max-width: 380px) {
-          .partners-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-          }
-        }
+        @media (max-width: 1200px) { .partners-grid { grid-template-columns: repeat(5, 1fr); } }
+        @media (max-width: 900px)  { .partners-grid { grid-template-columns: repeat(4, 1fr); } }
+        @media (max-width: 640px)  { .partners-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; } }
+        @media (max-width: 420px)  { .partners-grid { grid-template-columns: repeat(2, 1fr); } }
       `}</style>
     </main>
   );
