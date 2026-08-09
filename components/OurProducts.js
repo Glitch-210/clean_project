@@ -3,14 +3,14 @@ import { useInView } from '../hooks/useInView';
 import Link from 'next/link';
 
 const PRODUCTS = [
-  { name: 'Stationery',          image: '/our1.jpg' },
-  { name: 'Medicine',            image: '/our2.jpg' },
-  { name: 'Hand Tools',          image: '/our3.jpg' },
-  { name: 'Screws & Nuts',       image: '/our4.jpg' },
-  { name: 'Fruits & Vegetables', image: '/our5.jpg' },
-  { name: 'Beverages',           image: '/our6.jpg' },
-  { name: 'Safety Products',     image: '/our7.jpg' },
-  { name: 'Paints',              image: '/our8.jpg' },
+  { name: 'Stationery',          image: '/our1.webp' },
+  { name: 'Medicine',            image: '/our2.webp' },
+  { name: 'Hand Tools',          image: '/our3.webp' },
+  { name: 'Screws & Nuts',       image: '/our4.webp' },
+  { name: 'Fruits & Vegetables', image: '/our5.webp' },
+  { name: 'Beverages',           image: '/our6.webp' },
+  { name: 'Safety Products',     image: '/our7.webp' },
+  { name: 'Paints',              image: '/our8.webp' },
 ];
 
 function ProductTile({ p, i, visible }) {
