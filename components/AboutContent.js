@@ -296,15 +296,15 @@ const VALUES = [
 ];
 
 const BRANDS = [
-  { file: 'brand1.png', name: 'Yanmar' },
-  { file: 'brand2.png', name: 'Sulzer' },
-  { file: 'brand3.png', name: 'CAT Caterpillar' },
-  { file: 'brand4.png', name: 'Volvo Penta' },
-  { file: 'brand5.png', name: 'MAN B&W' },
-  { file: 'brand6.png', name: 'Wartsila' },
-  { file: 'brand7.png', name: 'Mitsubishi' },
-  { file: 'brand8.png', name: 'Cummins' },
-  { file: 'brand9.png', name: 'Rolls Royce' },
+  { file: 'brand1.webp', name: 'Yanmar' },
+  { file: 'brand2.webp', name: 'Sulzer' },
+  { file: 'brand3.webp', name: 'CAT Caterpillar' },
+  { file: 'brand4.webp', name: 'Volvo Penta' },
+  { file: 'brand5.webp', name: 'MAN B&W' },
+  { file: 'brand6.webp', name: 'Wartsila' },
+  { file: 'brand7.webp', name: 'Mitsubishi' },
+  { file: 'brand8.webp', name: 'Cummins' },
+  { file: 'brand9.webp', name: 'Rolls Royce' },
 ];
 
 export default function AboutContent() {

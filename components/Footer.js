@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import TypewriterText from './TypewriterText';
 
 function FooterLink({ href, label }) {
   const [hovered, setHovered] = useState(false);
@@ -15,8 +16,103 @@ function FooterLink({ href, label }) {
 
 export default function Footer() {
   return (
-    <footer style={{ background: '#07111F', borderTop: '1px solid rgba(62,124,184,0.2)' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '64px 40px 28px' }}>
+    <footer style={{ background: '#07111F', borderTop: '1px solid rgba(62,124,184,0.2)', position: 'relative', overflow: 'hidden' }}>
+      {/* DECORATIVE WORLD MAP BACKGROUND SVG */}
+      <div className="footer-world-map" style={{
+        position: 'absolute',
+        top: 0, left: 0, right: 0, bottom: 0,
+        pointerEvents: 'none',
+        zIndex: 0,
+        opacity: 0.07,
+        overflow: 'hidden',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
+        <svg viewBox="0 0 1000 500" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" fill="none" stroke="#C9922A" strokeWidth="1.2">
+          {/* Subtle Latitude & Longitude Grid Lines */}
+          <g stroke="#C9922A" strokeWidth="0.5" strokeDasharray="3 6" opacity="0.35">
+            <line x1="0" y1="125" x2="1000" y2="125" />
+            <line x1="0" y1="250" x2="1000" y2="250" />
+            <line x1="0" y1="375" x2="1000" y2="375" />
+            <line x1="200" y1="0" x2="200" y2="500" />
+            <line x1="400" y1="0" x2="400" y2="500" />
+            <line x1="600" y1="0" x2="600" y2="500" />
+            <line x1="800" y1="0" x2="800" y2="500" />
+          </g>
+          {/* World Map Outline Paths */}
+          <g fill="#C9922A" fillOpacity="0.25" stroke="#C9922A" strokeWidth="1.2" strokeLinejoin="round" strokeLinecap="round">
+            {/* North America */}
+            <path d="M 100,80 Q 120,60 160,65 T 230,55 T 270,70 T 260,110 T 220,130 T 240,150 T 210,180 T 190,230 T 170,220 T 150,190 T 120,170 T 80,140 T 70,110 Z" />
+            {/* Greenland */}
+            <path d="M 280,35 Q 320,25 350,40 T 330,75 T 290,70 Z" />
+            {/* South America */}
+            <path d="M 210,235 Q 250,240 270,270 T 260,330 T 235,390 T 210,430 T 195,380 T 190,300 T 200,245 Z" />
+            {/* Europe */}
+            <path d="M 440,75 Q 480,60 520,70 T 550,95 T 530,125 T 480,135 T 440,120 T 430,95 Z" />
+            {/* British Isles */}
+            <path d="M 420,80 Q 435,75 435,95 T 415,95 Z" />
+            {/* Africa */}
+            <path d="M 435,145 Q 490,140 535,160 T 555,210 T 530,260 T 500,320 T 470,370 T 440,340 T 435,270 T 415,200 T 430,160 Z" />
+            {/* Madagascar */}
+            <path d="M 560,310 Q 570,305 570,340 T 555,335 Z" />
+            {/* Asia */}
+            <path d="M 525,70 Q 600,50 720,45 T 840,75 T 860,110 T 800,140 T 740,160 T 700,210 T 650,230 T 610,210 T 580,175 T 550,135 Z" />
+            {/* Middle East & UAE */}
+            <path d="M 540,145 Q 570,140 595,165 T 580,200 T 550,185 Z" />
+            {/* India */}
+            <path d="M 625,185 Q 655,190 665,230 T 635,265 T 620,225 Z" />
+            {/* SE Asia & Islands */}
+            <path d="M 720,180 Q 770,170 800,200 T 770,240 T 730,245 Z" />
+            {/* Japan */}
+            <path d="M 830,105 Q 845,100 835,140 T 820,130 Z" />
+            {/* Australia */}
+            <path d="M 740,305 Q 790,285 840,305 T 850,360 T 810,400 T 750,385 T 730,345 Z" />
+            {/* New Zealand */}
+            <path d="M 875,385 Q 885,380 880,415 Z M 885,420 Q 895,415 890,445 Z" />
+          </g>
+          {/* Dubai location marker */}
+          <circle cx="575" cy="160" r="4" fill="#C9922A" opacity="0.8" />
+          <circle cx="575" cy="160" r="8" fill="none" stroke="#C9922A" strokeWidth="1" opacity="0.5" />
+        </svg>
+      </div>
+
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '64px 40px 28px', position: 'relative', zIndex: 1 }}>
+
+        {/* WORLD MAP IMAGE */}
+        <div style={{
+          width: '100%',
+          borderRadius: '10px',
+          overflow: 'hidden',
+          marginBottom: '40px',
+          position: 'relative',
+          lineHeight: 0,
+          border: '1px solid rgba(62,124,184,0.18)',
+          boxShadow: '0 8px 40px rgba(0,0,0,0.35)',
+        }}>
+          <Image
+            src="/img.jpeg"
+            alt="Badri Marine – Global Reach"
+            width={1200}
+            height={540}
+            style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover', opacity: 0.9 }}
+            priority={false}
+          />
+          {/* subtle dark overlay so it blends with the footer palette */}
+          <div style={{
+            position: 'absolute', inset: 0,
+            background: 'linear-gradient(180deg, rgba(7,17,31,0.18) 0%, rgba(7,17,31,0.42) 100%)',
+            pointerEvents: 'none',
+          }} />
+          {/* caption */}
+          <div style={{
+            position: 'absolute', bottom: '18px', left: '24px',
+            color: 'rgba(245,245,240,0.75)', fontSize: '12px',
+            letterSpacing: '3px', textTransform: 'uppercase', fontWeight: 700,
+          }}>
+            Our Global Reach
+          </div>
+        </div>
 
         {/* CTA BANNER */}
         <div style={{
@@ -44,9 +140,20 @@ export default function Footer() {
 
           {/* Brand */}
           <div className="footer-brand">
-            <Image src="/website_header_logo.png" alt="Badri Marine"
-              width={220} height={52}
-              style={{ objectFit: 'contain', height: '48px', width: 'auto', marginBottom: '16px', display: 'block' }} />
+            <div className="footer-logo-container" style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '16px' }}>
+              <Image src="/website_header_logo.png" alt="Badri Marine"
+                width={280} height={64}
+                className="footer-logo-img"
+                style={{ objectFit: 'contain', height: '64px', width: 'auto', display: 'block' }} />
+              <span className="footer-logo-text" style={{
+                color: '#E8B84B',
+                fontWeight: 800,
+                fontSize: '14px',
+                lineHeight: '1.3',
+              }}>
+                <TypewriterText text="Badri Marine & General Trading LLC" speed={35} />
+              </span>
+            </div>
             <p style={{ color: '#8B9BB4', fontSize: '13px', lineHeight: 1.8, marginBottom: '16px' }}>
               Your one-stop solution for marine chandling, ship maintenance, and general trading services across the UAE.
             </p>
@@ -68,6 +175,7 @@ export default function Footer() {
             <FooterLink href="/partners" label="Partners" />
             <FooterLink href="/ports" label="Ports" />
             <FooterLink href="/company-profile" label="Company Profile" />
+            <FooterLink href="/blog" label="Blog" />
             <FooterLink href="/contact" label="Contact" />
           </div>
 
@@ -116,6 +224,16 @@ export default function Footer() {
           }
           .footer-brand {
             grid-column: 1 / -1;
+          }
+        }
+        @media (max-width: 768px) {
+          .footer-logo-container {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 8px !important;
+          }
+          .footer-world-map {
+            opacity: 0.03 !important;
           }
         }
         @media (max-width: 500px) {

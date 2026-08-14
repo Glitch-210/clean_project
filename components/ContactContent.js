@@ -6,8 +6,6 @@ function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-const QUOTE_EMAIL = 'infobadrimarine2012@gmail.com';
-
 /* --- SVG ICONS (replacing emojis) --- */
 function IconGlobe({ size = 32, color = 'currentColor' }) {
   return (
@@ -144,6 +142,7 @@ export default function ContactContent() {
     phone: '',
     service: '',
     message: '',
+    website: '', // honeypot - real users never fill this, bots often do
   });
   const [status, setStatus] = useState('idle');
   const [errors, setErrors] = useState({});
@@ -159,7 +158,7 @@ export default function ContactContent() {
     return e;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const e = validate();
     if (Object.keys(e).length > 0) {
       setErrors(e);
@@ -169,31 +168,40 @@ export default function ContactContent() {
     setErrors({});
     setStatus('loading');
 
-    const subject = encodeURIComponent(`Quote Request from ${form.full_name}`);
-    const body = encodeURIComponent(
-      [
-        'Full Name: ' + form.full_name,
-        'Email: ' + form.email,
-        'Phone: ' + form.phone,
-        'Service Required: ' + form.service,
-        '',
-        'Tell us about your requirement:',
-        form.message,
-      ].join('\n')
-    );
+    // Split the single "Full Name" field into first/last name,
+    // since send-mail.php expects first_name and last_name separately.
+    const nameParts = form.full_name.trim().split(/\s+/);
+    const first_name = nameParts[0] || '';
+    const last_name = nameParts.slice(1).join(' ') || first_name;
 
-    const mailtoLink = `mailto:${QUOTE_EMAIL}?subject=${subject}&body=${body}`;
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          first_name,
+          last_name,
+          email: form.email,
+          phone: form.phone,
+          service: form.service,
+          description: form.message, // API expects "description", not "message"
+          website: form.website,     // honeypot field, should always be empty for real users
+        }),
+      });
 
-    window.location.href = mailtoLink;
+      const data = await res.json().catch(() => null);
 
-    setStatus('success');
-    setForm({
-      full_name: '',
-      email: '',
-      phone: '',
-      service: '',
-      message: '',
-    });
+      if (res.ok && data?.ok) {
+        setStatus('success');
+        setForm({ full_name: '', email: '', phone: '', service: '', message: '', website: '' });
+      } else {
+        setErrors({ submit: data?.error || 'Something went wrong. Please try again or WhatsApp us directly.' });
+        setStatus('error');
+      }
+    } catch (err) {
+      setErrors({ submit: 'Could not reach the server. Please try again or WhatsApp us directly.' });
+      setStatus('error');
+    }
   };
 
   const inp = (field) => ({
@@ -280,6 +288,20 @@ export default function ContactContent() {
               disabled={status === 'loading'} />
             {errors.message && <div style={{ color: '#dc2626', fontSize: '12px', marginTop: '-10px', marginBottom: '14px' }}>{errors.message}</div>}
 
+            {/* Honeypot field — invisible to real users, bots often fill it in.
+                Must stay in the DOM (not display:none via a shared class bots can detect),
+                positioned off-screen and unreachable by keyboard/tab. */}
+            <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', top: '-9999px', width: '1px', height: '1px', overflow: 'hidden' }}>
+              <input
+                type="text"
+                name="website"
+                tabIndex={-1}
+                autoComplete="off"
+                value={form.website}
+                onChange={e => setForm({ ...form, website: e.target.value })}
+              />
+            </div>
+
             <button onClick={handleSubmit} disabled={status === 'loading'} style={{
               background: status === 'loading' ? 'rgba(62,124,184,0.5)' : 'linear-gradient(135deg,#073255,#3E7CB8)',
               color: '#FFFFFF', border: 'none', padding: '15px 40px',
@@ -296,7 +318,7 @@ export default function ContactContent() {
               {status === 'loading' ? (
                 <>
                   <span style={{ width: '16px', height: '16px', border: '2px solid #0A1628', borderTop: '2px solid transparent', borderRadius: '50%', display: 'inline-block', animation: 'spin 0.8s linear infinite' }} />
-                  Opening Mail...
+                  Sending...
                 </>
               ) : 'Send Quote'}
             </button>

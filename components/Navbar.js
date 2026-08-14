@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import TypewriterText from './TypewriterText';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -21,6 +22,7 @@ export default function Navbar() {
     { label: 'Partners', href: '/partners' },
     { label: 'Ports',    href: '/ports' },
     { label: 'Profile',  href: '/company-profile' },
+    { label: 'Blog',     href: '/blog' },
     { label: 'Contact',  href: '/contact' },
   ];
 
@@ -46,18 +48,28 @@ export default function Navbar() {
         borderBottom: '1px solid rgba(62,124,184,0.15)',
         padding: '0 48px',
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        height: '90px',
+        height: '95px',
         boxShadow: scrolled ? '0 4px 32px rgba(0,0,0,0.6)' : 'none',
         transition: 'all 0.3s ease',
       }}>
-        {/* LOGO */}
-        <Link href="/">
-          <Image src="/website_header_logo.png" alt="Badri Marine" width={320} height={72}
-            style={{ objectFit: 'contain', height: '72px', width: 'auto' }} priority />
+        {/* LOGO & COMPANY NAME */}
+        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none' }}>
+          <Image src="/website_header_logo.png" alt="Badri Marine" width={380} height={85}
+            className="nav-logo-img"
+            style={{ objectFit: 'contain', height: '85px', width: 'auto' }} priority />
+          <span className="nav-logo-text" style={{
+            color: '#E8B84B',
+            fontWeight: 800,
+            fontSize: '13px',
+            letterSpacing: '0.5px',
+            whiteSpace: 'nowrap',
+          }}>
+            <TypewriterText text="Badri Marine & General Trading LLC" speed={35} />
+          </span>
         </Link>
 
         {/* DESKTOP NAV */}
-        <div style={{ display: 'flex', gap: '28px', alignItems: 'center' }} className="nav-desktop">
+        <div style={{ display: 'flex', gap: '22px', alignItems: 'center' }} className="nav-desktop">
           {links.map(l => <NavLink key={l.label} href={l.href} label={l.label} />)}
           <Link href="/contact" style={{
             background: 'linear-gradient(135deg,#073255,#3E7CB8)',
@@ -136,14 +148,18 @@ export default function Navbar() {
           .nav-desktop { display: none !important; }
           .nav-hamburger { display: flex !important; }
         }
+        @media (max-width: 768px) {
+          .nav-logo-text { display: none !important; }
+          .nav-logo-img { height: 56px !important; }
+        }
+        @media (max-width: 600px) {
+          nav { padding: 0 20px !important; height: 70px !important; }
+          .nav-logo-img { height: 56px !important; }
+        }
         @media (max-width: 560px) {
           .top-bar { font-size: 11px !important; padding: 6px 16px !important; }
           .top-bar span:last-child { display: none; }
           .wa-btn { width: 50px !important; height: 50px !important; bottom: 18px !important; right: 18px !important; }
-        }
-        @media (max-width: 600px) {
-          nav { padding: 0 20px !important; height: 70px !important; }
-          nav img { height: 52px !important; }
         }
       `}</style>
     </>
