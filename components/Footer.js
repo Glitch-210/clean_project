@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import TypewriterText from './TypewriterText';
@@ -15,23 +15,160 @@ function FooterLink({ href, label }) {
 }
 
 export default function Footer() {
+  const footerRef = useRef(null);
+  const mapRef = useRef(null);
+
+  useEffect(() => {
+    // Check if device supports fine pointer (desktop mouse/trackpad vs touch screen)
+    const finePointerMatch = typeof window !== 'undefined' && window.matchMedia('(pointer: fine)').matches;
+    const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let animId;
+    let targetMouseX = 0;
+    let targetMouseY = 0;
+    let targetTouchX = 0;
+    let targetTouchY = 0;
+    let targetScrollY = 0;
+
+    let currentMouseX = 0;
+    let currentMouseY = 0;
+    let currentTouchX = 0;
+    let currentTouchY = 0;
+    let currentScrollY = 0;
+
+    let startTouchX = 0;
+    let startTouchY = 0;
+    let isTouching = false;
+
+    // Desktop Mouse Parallax Handler
+    const handleMouseMove = (e) => {
+      if (!finePointerMatch || !footerRef.current) return;
+      const rect = footerRef.current.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const normX = Math.max(-1, Math.min(1, (e.clientX - centerX) / (rect.width / 2)));
+      const normY = Math.max(-1, Math.min(1, (e.clientY - centerY) / (rect.height / 2)));
+
+      targetMouseX = normX * 48;
+      targetMouseY = normY * 32;
+    };
+
+    // Mobile Touch Drag Parallax Handlers
+    const handleTouchStart = (e) => {
+      if (e.touches && e.touches[0]) {
+        isTouching = true;
+        startTouchX = e.touches[0].clientX;
+        startTouchY = e.touches[0].clientY;
+      }
+    };
+
+    const handleTouchMove = (e) => {
+      if (!isTouching || !e.touches || !e.touches[0]) return;
+      const deltaX = e.touches[0].clientX - startTouchX;
+      const deltaY = e.touches[0].clientY - startTouchY;
+
+      // Subtle touch drag shift (max +/- 36px horizontal, +/- 24px vertical)
+      targetTouchX = Math.max(-1, Math.min(1, deltaX / 120)) * 36;
+      targetTouchY = Math.max(-1, Math.min(1, deltaY / 120)) * 24;
+    };
+
+    const handleTouchEnd = () => {
+      isTouching = false;
+      // Gently return touch parallax offset to center when released
+      targetTouchX = 0;
+      targetTouchY = 0;
+    };
+
+    // Universal Scroll Parallax Handler (Mobile + Desktop)
+    const handleScroll = () => {
+      if (!footerRef.current) return;
+      const rect = footerRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+      const progress = (windowHeight - rect.top) / (windowHeight + rect.height);
+      const clampedProgress = Math.max(0, Math.min(1, progress));
+      
+      // Pronounced vertical scroll translation (-45px to +45px)
+      targetScrollY = (clampedProgress - 0.5) * 90;
+    };
+
+    // Animation Loop
+    const animate = () => {
+      if (!prefersReducedMotion) {
+        currentMouseX += (targetMouseX - currentMouseX) * 0.22;
+        currentMouseY += (targetMouseY - currentMouseY) * 0.22;
+        currentTouchX += (targetTouchX - currentTouchX) * 0.18;
+        currentTouchY += (targetTouchY - currentTouchY) * 0.18;
+        currentScrollY += (targetScrollY - currentScrollY) * 0.22;
+
+        if (mapRef.current) {
+          const totalX = (finePointerMatch ? currentMouseX : currentTouchX).toFixed(2);
+          const totalY = ((finePointerMatch ? currentMouseY : currentTouchY) + currentScrollY).toFixed(2);
+          const scale = (1 + Math.abs(currentScrollY) * 0.0012).toFixed(4);
+          mapRef.current.style.transform = `translate3d(${totalX}px, ${totalY}px, 0) scale(${scale})`;
+        }
+      }
+
+      animId = requestAnimationFrame(animate);
+    };
+
+    const footerEl = footerRef.current;
+
+    if (finePointerMatch) {
+      window.addEventListener('mousemove', handleMouseMove);
+    } else if (footerEl) {
+      footerEl.addEventListener('touchstart', handleTouchStart, { passive: true });
+      footerEl.addEventListener('touchmove', handleTouchMove, { passive: true });
+      footerEl.addEventListener('touchend', handleTouchEnd, { passive: true });
+      footerEl.addEventListener('touchcancel', handleTouchEnd, { passive: true });
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    animId = requestAnimationFrame(animate);
+
+    return () => {
+      if (finePointerMatch) {
+        window.removeEventListener('mousemove', handleMouseMove);
+      } else if (footerEl) {
+        footerEl.removeEventListener('touchstart', handleTouchStart);
+        footerEl.removeEventListener('touchmove', handleTouchMove);
+        footerEl.removeEventListener('touchend', handleTouchEnd);
+        footerEl.removeEventListener('touchcancel', handleTouchEnd);
+      }
+      window.removeEventListener('scroll', handleScroll);
+      if (animId) cancelAnimationFrame(animId);
+    };
+  }, []);
+
   return (
-    <footer style={{ background: '#07111F', borderTop: '1px solid rgba(62,124,184,0.2)', position: 'relative', overflow: 'hidden' }}>
-      {/* DECORATIVE WORLD MAP BACKGROUND SVG */}
-      <div className="footer-world-map" style={{
+    <footer
+      ref={footerRef}
+      className="footer-container"
+      style={{
+        background: '#07111F',
+        borderTop: '1px solid rgba(62,124,184,0.25)',
+        position: 'relative',
+        overflow: 'hidden',
+        width: '100%',
+      }}
+    >
+      {/* DECORATIVE ANIMATED WORLD MAP BACKGROUND SVG */}
+      <div className="footer-world-map" ref={mapRef} style={{
         position: 'absolute',
-        top: 0, left: 0, right: 0, bottom: 0,
+        top: '-40px', left: '-40px', right: '-40px', bottom: '-40px',
         pointerEvents: 'none',
         zIndex: 0,
-        opacity: 0.07,
+        opacity: 0.58,
         overflow: 'hidden',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        willChange: 'transform',
+        transition: 'opacity 0.4s ease',
       }}>
-        <svg viewBox="0 0 1000 500" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" fill="none" stroke="#C9922A" strokeWidth="1.2">
-          {/* Subtle Latitude & Longitude Grid Lines */}
-          <g stroke="#C9922A" strokeWidth="0.5" strokeDasharray="3 6" opacity="0.35">
+        <svg viewBox="0 0 1000 500" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" fill="none" stroke="#3E7CB8" strokeWidth="1.4" style={{ width: '100%', height: '100%', objectFit: 'contain' }}>
+          {/* Latitude & Longitude Grid Lines */}
+          <g stroke="#3E7CB8" strokeWidth="0.7" strokeDasharray="3 6" opacity="0.65">
             <line x1="0" y1="125" x2="1000" y2="125" />
             <line x1="0" y1="250" x2="1000" y2="250" />
             <line x1="0" y1="375" x2="1000" y2="375" />
@@ -41,7 +178,7 @@ export default function Footer() {
             <line x1="800" y1="0" x2="800" y2="500" />
           </g>
           {/* World Map Outline Paths */}
-          <g fill="#C9922A" fillOpacity="0.25" stroke="#C9922A" strokeWidth="1.2" strokeLinejoin="round" strokeLinecap="round">
+          <g fill="#3E7CB8" fillOpacity="0.35" stroke="#3E7CB8" strokeWidth="1.4" strokeLinejoin="round" strokeLinecap="round">
             {/* North America */}
             <path d="M 100,80 Q 120,60 160,65 T 230,55 T 270,70 T 260,110 T 220,130 T 240,150 T 210,180 T 190,230 T 170,220 T 150,190 T 120,170 T 80,140 T 70,110 Z" />
             {/* Greenland */}
@@ -72,47 +209,12 @@ export default function Footer() {
             <path d="M 875,385 Q 885,380 880,415 Z M 885,420 Q 895,415 890,445 Z" />
           </g>
           {/* Dubai location marker */}
-          <circle cx="575" cy="160" r="4" fill="#C9922A" opacity="0.8" />
-          <circle cx="575" cy="160" r="8" fill="none" stroke="#C9922A" strokeWidth="1" opacity="0.5" />
+          <circle cx="575" cy="160" r="6" fill="#E8B84B" opacity="0.95" />
+          <circle cx="575" cy="160" r="12" fill="none" stroke="#E8B84B" strokeWidth="1.6" opacity="0.65" />
         </svg>
       </div>
 
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '64px 40px 28px', position: 'relative', zIndex: 1 }}>
-
-        {/* WORLD MAP IMAGE */}
-        <div style={{
-          width: '100%',
-          borderRadius: '10px',
-          overflow: 'hidden',
-          marginBottom: '40px',
-          position: 'relative',
-          lineHeight: 0,
-          border: '1px solid rgba(62,124,184,0.18)',
-          boxShadow: '0 8px 40px rgba(0,0,0,0.35)',
-        }}>
-          <Image
-            src="/img.jpeg"
-            alt="Badri Marine – Global Reach"
-            width={1200}
-            height={540}
-            style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover', opacity: 0.9 }}
-            priority={false}
-          />
-          {/* subtle dark overlay so it blends with the footer palette */}
-          <div style={{
-            position: 'absolute', inset: 0,
-            background: 'linear-gradient(180deg, rgba(7,17,31,0.18) 0%, rgba(7,17,31,0.42) 100%)',
-            pointerEvents: 'none',
-          }} />
-          {/* caption */}
-          <div style={{
-            position: 'absolute', bottom: '18px', left: '24px',
-            color: 'rgba(245,245,240,0.75)', fontSize: '12px',
-            letterSpacing: '3px', textTransform: 'uppercase', fontWeight: 700,
-          }}>
-            Our Global Reach
-          </div>
-        </div>
 
         {/* CTA BANNER */}
         <div style={{
@@ -140,18 +242,24 @@ export default function Footer() {
 
           {/* Brand */}
           <div className="footer-brand">
-            <div className="footer-logo-container" style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '16px' }}>
+            <div className="footer-logo-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '12px', marginBottom: '16px' }}>
               <Image src="/website_header_logo.png" alt="Badri Marine"
                 width={280} height={64}
                 className="footer-logo-img"
                 style={{ objectFit: 'contain', height: '64px', width: 'auto', display: 'block' }} />
               <span className="footer-logo-text" style={{
-                color: '#E8B84B',
+                color: '#3E7CB8',
                 fontWeight: 800,
-                fontSize: '14px',
+                fontSize: 'clamp(15px, 1.8vw, 21px)',
                 lineHeight: '1.3',
+                textAlign: 'center',
+                whiteSpace: 'nowrap',
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '100%',
               }}>
-                <TypewriterText text="Badri Marine & General Trading LLC" speed={35} />
+                <TypewriterText text="Badri Marine & General Trading LLC" speed={80} />
               </span>
             </div>
             <p style={{ color: '#8B9BB4', fontSize: '13px', lineHeight: 1.8, marginBottom: '16px' }}>
@@ -232,8 +340,11 @@ export default function Footer() {
             align-items: flex-start !important;
             gap: 8px !important;
           }
+          .footer-logo-text {
+            font-size: 15px !important;
+          }
           .footer-world-map {
-            opacity: 0.03 !important;
+            opacity: 0.42 !important;
           }
         }
         @media (max-width: 500px) {
@@ -244,10 +355,13 @@ export default function Footer() {
           .footer-brand {
             grid-column: auto;
           }
+          .footer-logo-text {
+            font-size: 13px !important;
+          }
         }
         * { box-sizing: border-box; }
         body { overflow-x: hidden; }
       `}</style>
     </footer>
   );
-}
+}

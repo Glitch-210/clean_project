@@ -2,6 +2,7 @@ import './globals.css';
 import PageLoader from '../components/PageLoader';
 import BackToTop from '../components/BackToTop';
 import CookieBanner from '../components/CookieBanner';
+import CustomCursor from '../components/CustomCursor';
 
 export const metadata = {
   title: 'Badri Marine & General Trading LLC | Ship Chandler Dubai UAE',
@@ -62,6 +63,7 @@ export default function RootLayout({ children }) {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaMarkup) }} />
       </head>
       <body>
+        <CustomCursor />
         <PageLoader />
         {children}
         <BackToTop />
