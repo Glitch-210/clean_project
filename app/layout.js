@@ -37,7 +37,7 @@ const schemaMarkup = {
   geo: { '@type': 'GeoCoordinates', latitude: 25.1865, longitude: 55.2656 },
   openingHoursSpecification: {
     '@type': 'OpeningHoursSpecification',
-    dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
+    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
     opens: '08:00', closes: '20:00',
   },
 };
@@ -54,7 +54,8 @@ export default function RootLayout({ children }) {
         <meta name="theme-color" content="#0A1628" />
         <meta name="google-site-verification" content="DK2Cojp1FyymCata9gGyNzURdliFV7J6jwP31mvUtXo" />
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-N034SG16Z2" />
-        <script dangerouslySetInnerHTML={{ __html: `
+        <script dangerouslySetInnerHTML={{
+          __html: `
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
@@ -65,7 +66,9 @@ export default function RootLayout({ children }) {
       <body>
         <CustomCursor />
         <PageLoader />
-        {children}
+        <main className="main-content-curtain">
+          {children}
+        </main>
         <BackToTop />
         <CookieBanner />
       </body>

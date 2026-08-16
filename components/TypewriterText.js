@@ -51,25 +51,7 @@ export default function TypewriterText({ text, speed = 80, className = '', style
           </span>
         );
       })}
-      <span
-        style={{
-          display: 'inline-block',
-          width: '2px',
-          height: '1.1em',
-          backgroundColor: 'currentColor',
-          marginLeft: '2px',
-          borderRadius: '1px',
-          opacity: visibleCount < text.length ? 0.9 : 0.4,
-          animation: visibleCount === text.length ? 'typewriterBlink 1.1s infinite' : 'none',
-          transition: 'opacity 0.3s ease',
-        }}
-      />
-      <style jsx>{`
-        @keyframes typewriterBlink {
-          0%, 100% { opacity: 0.9; }
-          50% { opacity: 0.1; }
-        }
-      `}</style>
+
     </span>
   );
 }
